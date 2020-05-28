@@ -39,5 +39,13 @@ module ::Bim::Queries::WorkPackages::Columns
 
       [new(:bcf_thumbnail, { summable: false, groupable: false, sortable: false })]
     end
+
+    def xls_formatter
+      :thumbnail
+    end
+
+    def xls_value(work_package)
+      'x'
+    end
   end
 end

@@ -74,5 +74,11 @@ module OpenProject::XlsExport
         format.gsub("%n", number).gsub("%u", curr)
       end
     end
+
+    class ThumbnailFormatter < DefaultFormatter
+      def format(work_package, column)
+        'X'
+      end
+    end
   end
 end
