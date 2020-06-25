@@ -33,6 +33,8 @@ import {States} from 'core-components/states.service';
 import {Injectable} from '@angular/core';
 import {cloneHalResourceCollection} from 'core-app/modules/hal/helpers/hal-resource-builder';
 import {QueryColumn, queryColumnTypes} from "core-components/wp-query/query-column";
+import {combine} from "reactivestates";
+import {mapTo, take} from "rxjs/operators";
 
 @Injectable()
 export class WorkPackageViewColumnsService extends WorkPackageQueryStateService<QueryColumn[]> {
@@ -270,6 +272,19 @@ export class WorkPackageViewColumnsService extends WorkPackageQueryStateService<
     return this
       .all
       .filter((column:QueryColumn) => column._type === queryColumnTypes.PROPERTY);
+  }
+
+  /**
+   * Columns service depends on two states
+   */
+  public onReady() {
+    return combine(this.pristineState, this.availableState)
+      .values$()
+      .pipe(
+        take(1),
+        mapTo(null)
+      )
+      .toPromise();
   }
 
   /**

@@ -32,10 +32,21 @@ export class BcfListContainerComponent extends WorkPackageListViewComponent impl
   public wpTableConfiguration = {
     dragAndDropEnabled: false
   };
-  
+
+  ngOnInit() {
+    super.ngOnInit();
+
+    // Ensure we add a bcf thumbnail column
+    // until we can load the initial query
+    this.wpTableColumns
+      .onReady()
+      .then(() => {
+      this.wpTableColumns.addColumn('bcfThumbnail', 2);
+    });
+  }
+
   protected updateViewRepresentation(query:QueryResource) {
     console.log('updateViewRepresentation: ', this.wpTableColumns.id, this.wpTableColumns.getColumns(), query);
-    this.wpTableColumns.addColumn('bcfThumbnail', 2);
 
     if (this.wpDisplayRepresentation.current === null) {
       this.wpDisplayRepresentation.setDisplayRepresentation(wpDisplayCardRepresentation);
