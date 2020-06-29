@@ -190,6 +190,8 @@ class WorkPackage::PDFExport::WorkPackageListToPdf < WorkPackage::Exporter::Base
   def make_column_value(work_package, column)
     if column.is_a?(Queries::WorkPackages::Columns::CustomFieldColumn)
       make_custom_field_value work_package, column
+    elsif column.is_a?(::Bim::Queries::WorkPackages::Columns::BcfThumbnailColumn)
+      make_bcf_thumbnail_field_value work_package
     else
       make_field_value work_package, column.name
     end
@@ -217,5 +219,11 @@ class WorkPackage::PDFExport::WorkPackageListToPdf < WorkPackage::Exporter::Base
 
     pdf.make_cell values.map(&:formatted_value).join(', '),
                   padding: cell_padding
+  end
+
+  def make_bcf_thumbnail_field_value(work_package)
+    # A BCF viewpoint must have a snapshot. So it's safe to check for
+    # viewpoint existence only.
+    work_package.bcf_issue.viewpoints.any? ? 'X' : ''
   end
 end
