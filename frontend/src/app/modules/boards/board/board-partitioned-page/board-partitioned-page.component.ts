@@ -18,7 +18,7 @@ import {BoardsMenuButtonComponent} from "core-app/modules/boards/board/toolbar-m
 import {RequestSwitchmap} from "core-app/helpers/rxjs/request-switchmap";
 import {from} from "rxjs";
 import {componentDestroyed} from "@w11k/ngx-componentdestroyed";
-import {take} from "rxjs/operators";
+import {take, map} from "rxjs/operators";
 import {I18nService} from "core-app/modules/common/i18n/i18n.service";
 import {UntilDestroyedMixin} from "core-app/helpers/angular/until-destroyed.mixin";
 import {QueryResource} from "core-app/modules/hal/resources/query-resource";
@@ -59,7 +59,10 @@ export class BoardPartitionedPageComponent extends UntilDestroyedMixin {
   };
 
   /** Board observable */
-  board$ = this.BoardCache.observe(this.state.params.board_id.toString());
+  board$ = this.BoardCache.observe(this.state.params.board_id.toString()).pipe(map(board => {
+    console.log('board', board, this.state.params.board_id);
+    return board;
+  }));
 
   /** Whether this is a new board just created */
   isNew:boolean = !!this.state.params.isNew;

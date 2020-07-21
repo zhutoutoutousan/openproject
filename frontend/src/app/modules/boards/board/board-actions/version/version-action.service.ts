@@ -1,15 +1,10 @@
 import {Injectable} from "@angular/core";
-import {BoardListsService} from "core-app/modules/boards/board/board-list/board-lists.service";
 import {Board} from "core-app/modules/boards/board/board";
 import {QueryResource} from "core-app/modules/hal/resources/query-resource";
 import {BoardActionService} from "core-app/modules/boards/board/board-actions/board-action.service";
 import {HalResource} from "core-app/modules/hal/resources/hal-resource";
-import {I18nService} from "core-app/modules/common/i18n/i18n.service";
-import {FilterOperator} from "core-components/api/api-v3/api-v3-filter-builder";
 import {VersionResource} from "core-app/modules/hal/resources/version-resource";
 import {VersionDmService} from "core-app/modules/hal/dm-services/version-dm.service";
-import {CurrentProjectService} from "core-components/projects/current-project.service";
-import {PathHelperService} from "core-app/modules/common/path-helper/path-helper.service";
 import {VersionAutocompleterComponent} from "core-app/modules/common/autocomplete/version-autocompleter.component";
 import {OpContextMenuItem} from "core-components/op-context-menu/op-context-menu.types";
 import {LinkHandling} from "core-app/modules/common/link-handling/link-handling";
@@ -19,54 +14,20 @@ import {VersionCacheService} from "core-components/versions/version-cache.servic
 import {VersionBoardHeaderComponent} from "core-app/modules/boards/board/board-actions/version/version-board-header.component";
 import {FormResource} from "core-app/modules/hal/resources/form-resource";
 import {FormsCacheService} from "core-components/forms/forms-cache.service";
+import {InjectField} from "core-app/helpers/angular/inject-field.decorator";
 
 @Injectable()
-export class BoardVersionActionService implements BoardActionService {
+export class BoardVersionActionService extends BoardActionService {
+  @InjectField() versionCache:VersionCacheService;
+  @InjectField() versionDm:VersionDmService;
+  @InjectField() state:StateService;
+  @InjectField() formCache:FormsCacheService;
+  @InjectField() halNotification:HalResourceNotificationService;
 
-  constructor(protected boardListsService:BoardListsService,
-              protected I18n:I18nService,
-              protected versionDm:VersionDmService,
-              protected versionCache:VersionCacheService,
-              protected currentProject:CurrentProjectService,
-              protected halNotification:HalResourceNotificationService,
-              protected state:StateService,
-              protected formCache:FormsCacheService,
-              protected pathHelper:PathHelperService) {
-  }
+  actionAttribute = 'version';
 
   public get localizedName() {
     return this.I18n.t('js.work_packages.properties.version');
-  }
-
-  /**
-   * Returns the current filter value if any
-   * @param query
-   * @returns /api/v3/versions/:id if a version filter exists
-   */
-  public getFilterHref(query:QueryResource):string|undefined {
-    const filter = _.find(query.filters, filter => filter.id === 'version');
-
-    if (filter) {
-      const value = filter.values[0] as string|HalResource;
-      return (value instanceof HalResource) ? value.href! : value;
-    }
-
-    return;
-  }
-
-  /**
-   * Returns the loaded status
-   * @param query
-   */
-  public getLoadedFilterValue(query:QueryResource):Promise<undefined|VersionResource> {
-    const href = this.getFilterHref(query);
-
-    if (href) {
-      const id = HalResource.idFromLink(href);
-      return this.versionCache.require(id);
-    } else {
-      return Promise.resolve(undefined);
-    }
   }
 
   public canAddToQuery(query:QueryResource):Promise<boolean> {
@@ -82,7 +43,7 @@ export class BoardVersionActionService implements BoardActionService {
   }
 
   public addActionQueries(board:Board):Promise<Board> {
-    return this.getVersions()
+    return this.withLoadedAvailable()
       .then((results) => {
         return Promise.all<unknown>(
           results.map((version:VersionResource) => {
@@ -98,44 +59,15 @@ export class BoardVersionActionService implements BoardActionService {
       });
   }
 
-  public addActionQuery(board:Board, value:HalResource):Promise<Board> {
-    let params:any = {
-      name: value.name,
-    };
-
-    let filter = {
-      version: {
-        operator: '=' as FilterOperator,
-        values: [value.id]
-      }
-    };
-
-    return this.boardListsService.addQuery(board, params, [filter]);
-  }
-
-  /**
-   * Return available versions for new lists, given the list of active
-   * queries in the board.
-   *
-   * @param board The board we're looking at
-   * @param active The active set of values (hrefs or plain values)
-   */
-  public getAvailableValues(board:Board, active:Set<string>):Promise<HalResource[]> {
-    return this.getVersions()
-      .then(results =>
-        results.filter(version => !active.has(version.id!))
-      );
-  }
-
   /**
    * Adds an entry to the list menu to edit the version if allowed
-   * @param {QueryResource} active query
+   * @param {QueryResource} query The active query
    * @returns {Promise<any>}
    */
   public getAdditionalListMenuItems(query:QueryResource):Promise<OpContextMenuItem[]> {
     return this
       .getLoadedFilterValue(query)
-      .then(version => {
+      .then((version:VersionResource) => {
         if (version) {
           return this.buildItemsForVersion(version);
         } else {
@@ -166,11 +98,7 @@ export class BoardVersionActionService implements BoardActionService {
     return value instanceof VersionResource && value.isOpen();
   }
 
-  public warningTextWhenNoOptionsAvailable() {
-    return Promise.resolve(undefined);
-  }
-
-  private getVersions():Promise<VersionResource[]> {
+  protected loadAvailable():Promise<VersionResource[]> {
     if (this.currentProject.id === null) {
       return Promise.resolve([]);
     }

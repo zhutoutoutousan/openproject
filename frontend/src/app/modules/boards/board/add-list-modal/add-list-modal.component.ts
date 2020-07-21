@@ -139,8 +139,14 @@ export class AddListModalComponent extends OpModalComponent implements OnInit {
     this.inFlight = true;
     this.actionService
       .addActionQuery(this.board, this.selectedAttribute!)
-      .then(board => this.boardService.save(board))
+      .then(board => {
+        console.log('boardDD: ', board);
+
+        return  this.boardService.save(board);
+      })
       .then((board) => {
+        console.log('boardDD 2: ', board);
+
         this.inFlight = false;
         this.closeMe();
         this.boardCache.update(board);

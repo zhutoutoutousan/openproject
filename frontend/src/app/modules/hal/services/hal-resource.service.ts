@@ -114,6 +114,8 @@ export class HalResourceService {
       responseType: 'json'
     };
 
+    console.log('GET HalResource: ', href, new HttpParams({ encoder: new URLParamsEncoder(), fromObject: params }));
+
     return this._request('get', href, config);
   }
 

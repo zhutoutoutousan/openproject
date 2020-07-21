@@ -18,6 +18,7 @@ export class QueryUpdatedService {
     return interval(POLLING_INTERVAL)
            .pipe(
              startWith(0),
+             filter(() => ids.length > 0),
              filter(() => this.activeWindow.isActive),
              switchMap(() => {
                let result = this.queryForUpdates(ids, time);

@@ -223,6 +223,7 @@ export class BoardListComponent extends AbstractWidgetComponent implements OnIni
         this.untilDestroyed()
       )
       .subscribe((query) => {
+        console.log('querySpace: ', query)
         this.query = query;
         this.canDragOutOf = !!this.query.updateOrderedWorkPackages;
         this.loadActionAttribute(query);
@@ -242,8 +243,7 @@ export class BoardListComponent extends AbstractWidgetComponent implements OnIni
 
   public canMove(workPackage:WorkPackageResource) {
     if (this.board.isAction) {
-      const fieldSchema = workPackage.schema[this.board.actionAttribute!] as IFieldSchema;
-      return this.canDragOutOf && fieldSchema.writable;
+      return this.canDragOutOf && this.actionService.canMove(workPackage);
     } else {
       return this.canDragOutOf;
     }
@@ -256,10 +256,6 @@ export class BoardListComponent extends AbstractWidgetComponent implements OnIni
   public get canManage() {
     return this.boardService.canManage(this.board);
   }
-
-  //public get canDelete() {
-  //    return this.canManage && !!this.query.delete;
-  //}
 
   public get canRename() {
     return this.canManage &&
@@ -339,13 +335,18 @@ export class BoardListComponent extends AbstractWidgetComponent implements OnIni
 
     const id = this.actionService.getFilterHref(query);
 
+    console.log('getLoadedFilterValue 0: ', id, this.actionResource, this.board)
+
+
     // Test if we loaded the resource already
     if (this.actionResource && id === this.actionResource.href) {
       return;
     }
 
+
     // Load the resource
     this.actionService.getLoadedFilterValue(query).then(async resource => {
+      console.log('getLoadedFilterValue: ', resource)
       this.actionResource = resource;
       this.headerComponent = this.actionService.headerComponent();
       this.buttonPlaceholder = this.actionService.disabledAddButtonPlaceholder(resource);
@@ -374,17 +375,8 @@ export class BoardListComponent extends AbstractWidgetComponent implements OnIni
     let query = this.querySpace.query.value!;
     const changeset = this.halEditing.changeFor(workPackage) as WorkPackageChangeset;
 
-    // Ensure attribute remains writable in the form
-    const actionAttribute = this.board.actionAttribute;
-    if (actionAttribute && !changeset.isWritable(actionAttribute)) {
-      throw this.I18n.t(
-        'js.boards.error_attribute_not_writable',
-        { attribute: changeset.humanName(actionAttribute) }
-      );
-    }
-
-    const filter = new WorkPackageFilterValues(this.injector, changeset, query.filters);
-    filter.applyDefaultsFromFilters();
+    // Assign to the action attribute if this is an action board
+    this.actionService?.assignToWorkPackage(changeset, query);
 
     if (changeset.isEmpty()) {
       // Ensure work package and its schema is loaded

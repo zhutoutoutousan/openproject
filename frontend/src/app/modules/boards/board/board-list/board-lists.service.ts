@@ -66,6 +66,7 @@ export class BoardListsService {
    */
   public async addQuery(board:Board, queryParams:Object, filters:ApiV3Filter[]):Promise<Board> {
     const count = board.queries.length;
+    console.log('addQuery: ', board, queryParams, filters);
     try {
       const query = await this.create(queryParams, filters);
 

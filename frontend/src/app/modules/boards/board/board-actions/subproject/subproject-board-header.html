@@ -1,0 +1,8 @@
+<div class="assignee-board-header" *ngIf="resource">
+  <h2 class="editable-toolbar-title--fixed">
+    <a [href]="pathHelper.projectPath(resource.idFromLink)"
+       [textContent]="resource.name"
+       target="_blank">
+    </a>
+  </h2>
+</div>

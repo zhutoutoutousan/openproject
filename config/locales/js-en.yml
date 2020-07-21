@@ -819,6 +819,7 @@ en:
         status: "Status"
         subject: "Subject"
         subtask: "Subtask"
+        subproject: "Subproject"
         title: "Title"
         type: "Type"
         updatedAt: "Updated on"
