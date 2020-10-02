@@ -67,12 +67,19 @@ $menu-item-line-height: 30px
       height: calc(100% - (var(--main-menu-item-height) + 10px)) // 10px spacing
       overflow: auto
       @include styled-scroll-bar
+
+   
+    .menu_root.closed:nth-last-child(3)
+      display: flex
+      flex-direction: column
+      height: calc(100% - 125px)
+      overflow-y: auto !important
     
-    .main-menu-wrapper
-      .menu_root.closed:nth-last-child(3)
-        display: flex
-        flex-direction: column
-        height: 100%
+
+    .menu_root.open:nth-last-child(3)
+      display: flex
+      flex-direction: column
+     
 
   a:focus
     color: var(--main-menu-font-color)
@@ -80,7 +87,7 @@ $menu-item-line-height: 30px
   ul
     margin: 0
     padding: 0
-    overflow-y: auto
+   
 
     // -------------------- ALL menu items ---------------------------
     li
