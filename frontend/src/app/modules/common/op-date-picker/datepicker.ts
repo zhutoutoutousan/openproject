@@ -36,6 +36,7 @@ export class DatePicker {
   private datepickerFormat = 'Y-m-d';
 
   private datepickerCont:JQuery = jQuery(this.datepickerElemIdentifier);
+  private reshowTimeout:any;
   public datepickerInstance:Instance;
 
   constructor(private datepickerElemIdentifier:string,
@@ -77,6 +78,8 @@ export class DatePicker {
     }
 
     this.datepickerInstance = Array.isArray(datePickerInstances) ? datePickerInstances[0] : datePickerInstances;
+
+    document.addEventListener('scroll', (e) => this.hideDuringScroll(e));
   }
 
   public clear() {
@@ -98,7 +101,7 @@ export class DatePicker {
 
   public show() {
     this.datepickerInstance.open();
-    this.hideDuringScroll();
+    document.addEventListener('scroll', (e) => this.hideDuringScroll(e));
   }
 
   public setDates(dates:DateOption|DateOption[]) {
@@ -109,22 +112,27 @@ export class DatePicker {
     return this.datepickerInstance.isOpen;
   }
 
-  private hideDuringScroll() {
-    let reshowTimeout:any = null;
-    let scrollParent = this.datepickerCont.scrollParent();
+  private hideDuringScroll = (event:Event) => {
+    // Prevent Firefox quirk: flatPicker emits
+    // multiple scrolls event when it is open
+    const target = event.target! as HTMLInputElement;
 
-    scrollParent.scroll(() => {
-      this.datepickerInstance.close();
-      if (reshowTimeout) {
-        clearTimeout(reshowTimeout);
+    if (target.classList.contains('flatpickr-monthDropdown-months')) {
+      console.log(target)
+      return;
+    }
+
+    this.datepickerInstance.close();
+
+    if (this.reshowTimeout) {
+      clearTimeout(this.reshowTimeout);
+    }
+
+    this.reshowTimeout = setTimeout(() => {
+      if (this.visibleAndActive()) {
+        this.datepickerInstance.open();
       }
-
-      reshowTimeout = setTimeout(() => {
-        if (this.visibleAndActive()) {
-          this.datepickerInstance.open();
-        }
-      }, 50);
-    });
+    }, 50);
   }
 
   private visibleAndActive() {
