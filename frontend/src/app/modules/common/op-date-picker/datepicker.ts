@@ -118,7 +118,6 @@ export class DatePicker {
     const target = event.target! as HTMLInputElement;
 
     if (target.classList.contains('flatpickr-monthDropdown-months')) {
-      console.log(target)
       return;
     }
 
