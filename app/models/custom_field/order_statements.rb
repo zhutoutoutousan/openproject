@@ -110,6 +110,7 @@ module CustomField::OrderStatements
         LEFT JOIN #{CustomValue.table_name} cv_sort
         ON co_sort.id = CAST(cv_sort.value AS decimal(60,3))
         WHERE cv_sort.custom_field_id=#{id}
+        AND cv_sort.customized_type='#{self.class.customized_class.name}'
         AND cv_sort.customized_id=#{self.class.customized_class.table_name}.id
         LIMIT 1
     )
@@ -142,6 +143,7 @@ module CustomField::OrderStatements
     (SELECT CAST(cv_sort.value AS decimal(60,3)) FROM #{CustomValue.table_name} cv_sort
       WHERE cv_sort.customized_type='#{self.class.customized_class.name}'
       AND cv_sort.customized_id=#{self.class.customized_class.table_name}.id
+      AND cv_sort.customized_type='#{self.class.customized_class.name}'
       AND cv_sort.custom_field_id=#{id}
       AND cv_sort.value <> ''
       AND cv_sort.value IS NOT NULL
