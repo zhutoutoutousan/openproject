@@ -24,6 +24,9 @@ To find out more about the functionalities for Gantt charts, please visit our [u
 | [Create a project plan](#create-a-project-plan)            | How to create a project plan with the Gantt charts?  |
 | [Edit a project plan](#edit-a-project-plan)                | How to edit a project plan in OpenProject?           |
 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JNRmqWwSfeU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## What is a Gantt chart?
 
 With Gantt charts in OpenProject you can create and manage a project plan and share the information with your team. You can schedule your tasks and visualize the required steps to complete your project. As a project manager you are directly informed about delays in your project and can act accordingly.

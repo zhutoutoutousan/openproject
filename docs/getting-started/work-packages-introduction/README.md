@@ -19,6 +19,7 @@ For further documentation, please visit our [user guide for work packages](../..
 | [Create a new work package](#create-a-new-work-package)      | How to create a new work package in  a project?           |
 | [Open and edit a work package](#open-and-edit-a-work-package) | How to open and make changes to an existing work package? |
 | [Activity of work packages](#activity-of-work-packages)      | See all changes in a work package.                        |
+| [Configure work package table](#configure-work-package-table) | How to use filters to display the work package list?      |
 
 ## What is a work package?
 
@@ -71,6 +72,63 @@ Here you will see all changes which have been made to this work package.
 You can also insert a comment at the end of the Activity list.
 
 ![activity-work-packages](activity-work-packages.png)
+
+
+
+## Configure work package table
+
+You can configure the work package table view in OpenProject to display the information that you need in the list.
+
+You can change the header in the table and add or remove columns, filter and group work packages or sort them according to a specific criteria. Save the view to have it available directly from your project menu.
+
+Also, you can change between a flat list view and a hierarchy view.
+
+To open the work package table configuration, open the **Settings** icon with the three dots at the top right of the work package table.
+
+![configure-work-package-table](configure-work-package-table.png)
+
+**Add or remove columns in the work package table**
+
+To configure the view of the work package table and have different attributes displayed in the list you can add or remove columns in the work package list.
+
+First, [open the work package table configuration](#work-package-table-configuration).
+
+In the pop-up window, choose the tab **Columns**.
+
+You can add columns by typing the name of the attribute which you would like to add.
+
+You can remove columns by clicking the **x** icon.
+
+You order the attributes in the list with drag and drop.
+
+![columns](1566395294543.png)
+
+Clicking the **Apply** button will save your changes and adapt the table according to your configuration.
+
+![columns](1566395078197.png)
+
+ **Filter work packages**
+
+In the work package list there will soon be quite a lot of work packages in a project. To filter the work packages in the list, click on the **Filter** button on top of the work packages view. The number next to it tells you how many filter criteria you have applied to a list.
+
+In this example 1 filter criteria: Status = open.
+
+![filter-work-packages](filter-work-packages.png)
+
+To add a filter criteria, click the **+ Add filter:** button in the grey filter area. You can choose a filter criteria from the drop-down list or start typing to search for a criteria.
+
+![add-filter](add-filter.png)
+
+You can add as many filter criteria as needed. 
+Also, you can filter by [custom fields](../../../system-admin-guide/custom-fields) if you set this in the custom field configuration.
+
+If you want to search for specific text in the subject, description or comments of a work package, type in the **Filter by text** the expression you want to filter for.
+
+The results will be displayed accordingly in the work package list.
+
+![filter-text](filter-text.png)
+
+
 
 To find out more about the work package functionalities, please visit our detailed [user guide for work packages](../../user-guide/work-packages).
 
