@@ -19,9 +19,12 @@ import {BoardPartitionedPageComponent} from "core-app/modules/boards/board/board
 import {AddListModalComponent} from "core-app/modules/boards/board/add-list-modal/add-list-modal.component";
 import {I18nService} from "core-app/modules/common/i18n/i18n.service";
 import {BoardListCrossSelectionService} from "core-app/modules/boards/board/board-list/board-list-cross-selection.service";
-import {filter} from "rxjs/operators";
+import {filter, map, switchMap} from "rxjs/operators";
 import {BoardActionsRegistryService} from "core-app/modules/boards/board/board-actions/board-actions-registry.service";
 import {APIV3Service} from "core-app/modules/apiv3/api-v3.service";
+import {IsolatedQuerySpace} from "core-app/modules/work_packages/query-space/isolated-query-space";
+import {WorkPackagesListService} from "core-components/wp-list/wp-list.service";
+import {CurrentProjectService} from "core-components/projects/current-project.service";
 
 @Component({
   templateUrl: './board-list-container.component.html',
@@ -69,25 +72,59 @@ export class BoardListContainerComponent extends UntilDestroyedMixin implements 
 
   private currentQueryUpdatedMonitoring:Subscription;
 
-  constructor(readonly I18n:I18nService,
-              readonly state:StateService,
-              readonly notifications:NotificationsService,
-              readonly halNotification:HalResourceNotificationService,
-              readonly boardComponent:BoardPartitionedPageComponent,
-              readonly BoardList:BoardListsService,
-              readonly boardActionRegistry:BoardActionsRegistryService,
-              readonly opModalService:OpModalService,
-              readonly injector:Injector,
-              readonly apiV3Service:APIV3Service,
-              readonly Boards:BoardService,
-              readonly Banner:BannersService,
-              readonly boardListCrossSelectionService:BoardListCrossSelectionService,
-              readonly Drag:DragAndDropService,
-              readonly QueryUpdated:QueryUpdatedService) {
+  constructor(
+    readonly I18n:I18nService,
+    readonly state:StateService,
+    readonly notifications:NotificationsService,
+    readonly halNotification:HalResourceNotificationService,
+    readonly boardComponent:BoardPartitionedPageComponent,
+    readonly BoardList:BoardListsService,
+    readonly boardActionRegistry:BoardActionsRegistryService,
+    readonly opModalService:OpModalService,
+    readonly injector:Injector,
+    readonly apiV3Service:APIV3Service,
+    readonly Boards:BoardService,
+    readonly Banner:BannersService,
+    readonly boardListCrossSelectionService:BoardListCrossSelectionService,
+    readonly Drag:DragAndDropService,
+    readonly QueryUpdated:QueryUpdatedService,
+    readonly querySpace:IsolatedQuerySpace,
+    readonly workPackagesListService:WorkPackagesListService,
+    readonly currentProject:CurrentProjectService,
+  ) {
     super();
   }
 
   ngOnInit():void {
+    /*this.querySpace
+          .query
+          .values$()
+          .pipe(
+            switchMap(originalQuery => {
+              console.log(' originalQuery.filters',  originalQuery.filters)
+
+              const additionalParams = {
+                pageSize: 0,
+                valid_subset: true,
+              };
+
+              return this.workPackagesListService
+                            .loadQueryFromExisting(originalQuery, additionalParams, this.currentProject.identifier!)
+                            .pipe(map(queryWithValidFilters => ({originalQuery, queryWithValidFilters})));
+            })
+          )
+          .subscribe(({originalQuery, queryWithValidFilters}) => {
+            console.log(' originalQuery.filters',  originalQuery.filters)
+            const containsExcludingFilters = originalQuery.filters.some(filter => filter.$source._links.operator.href === '/api/v3/queries/operators/%3D');
+            const someFiltersWereExcluded = originalQuery.filters.length !== queryWithValidFilters.filters.length;
+            console.log('query1', containsExcludingFilters, someFiltersWereExcluded, originalQuery.filters, queryWithValidFilters.filters);
+
+            if (containsExcludingFilters && someFiltersWereExcluded) {
+              this.showError('You are not allowed to see this board');
+            }
+          });*/
+
+
     const id:string = this.state.params.board_id.toString();
 
     this.board$ = this
@@ -100,9 +137,13 @@ export class BoardListContainerComponent extends UntilDestroyedMixin implements 
 
     this.board$
       .pipe(
-        this.untilDestroyed()
+        this.untilDestroyed(),
+        switchMap(board => {
+          return this.querySpace.query.values$().pipe(map(query => ({board, query})));
+        })
       )
-      .subscribe(board => {
+      .subscribe(({board, query}) => {
+        console.log('boardwww', board.filters, query.filters)
         this.setupQueryUpdatedMonitoring(board);
       });
 

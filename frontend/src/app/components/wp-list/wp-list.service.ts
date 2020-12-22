@@ -200,6 +200,8 @@ export class WorkPackagesListService {
       path = this.apiV3Service.withOptionalProject(projectIdentifier).queries;
     }
 
+    console.log('path', path, path.parameterised(params));
+
     return path.parameterised(params);
   }
 
