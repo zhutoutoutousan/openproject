@@ -1,0 +1,22 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit.emit($event)">
+  <div class="form--field">
+    <div class="form--field-container">
+      <div class="form--select-container">
+        <label class="form--label" [textContent]="text.name"></label>
+        <input
+          formControlName="name"
+          required
+          type="text"
+        >
+
+        <div *ngIf="name.invalid && (name.dirty || name.touched)"
+             class="alert alert-danger">
+
+          <div *ngIf="name.errors.required">
+            Name is required.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

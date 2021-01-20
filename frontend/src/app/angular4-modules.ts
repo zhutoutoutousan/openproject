@@ -77,12 +77,19 @@ import {OpenprojectMembersModule} from "core-app/modules/members/members.module"
 import {OpenprojectEnterpriseModule} from "core-components/enterprise/openproject-enterprise.module";
 import {OpenprojectAugmentingModule} from "core-app/modules/augmenting/openproject-augmenting.module";
 import {RevitAddInSettingsButtonService} from "core-app/modules/bim/revit_add_in/revit-add-in-settings-button.service";
+import {InviteUserWizardComponent} from "core-app/modules/wizard/wizard-a/invite-user-wizard.component";
+import {OpModalService} from "core-components/op-modals/op-modal.service";
+import {InviteUserWizardComponentB} from "core-app/modules/wizard/wizard-b/invite-user-wizard-component-b.component";
+import {UserNameStepComponent} from "core-app/modules/wizard/wizard-b/steps/user-name-step.component";
+import {CommonModule} from "@angular/common";
+import {UserEmailStepComponent} from "core-app/modules/wizard/wizard-b/steps/user-email-step.component";
 
 @NgModule({
   imports: [
     // The BrowserModule must only be loaded here!
     BrowserModule,
     // Commons
+    CommonModule,
     OpenprojectCommonModule,
     // Router module
     OpenprojectRouterModule,
@@ -169,6 +176,11 @@ import {RevitAddInSettingsButtonService} from "core-app/modules/bim/revit_add_in
     // Form configuration
     OpDragScrollDirective,
     ConfirmFormSubmitController,
+
+    InviteUserWizardComponent,
+    InviteUserWizardComponentB,
+    UserNameStepComponent,
+    UserEmailStepComponent,
   ]
 })
 export class OpenProjectModule {
@@ -209,5 +221,10 @@ export function initializeServices(injector:Injector) {
     PreviewTrigger.setupListener();
 
     keyboardShortcuts.register();
+
+    setTimeout(() => {
+      const modal = injector.get(OpModalService);
+      modal.show(InviteUserWizardComponentB, injector);
+    }, 2000);
   };
 }

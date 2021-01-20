@@ -1,0 +1,64 @@
+<div class="op-modal--portal ngdialog-theme-openproject">
+  <div
+    class="op-modal--modal-container"
+    data-indicator-name="modal"
+    tabindex="0"
+  >
+    <div class="op-modal--modal-header">
+      <a class="op-modal--modal-close-button" *ngIf="showClose">
+        <i
+          class="icon-close"
+          (click)="closeMe($event)"
+          [attr.title]="text.close_popup">
+        </i>
+      </a>
+      <h3 class="icon-context icon-add" [textContent]="text.title"></h3>
+    </div>
+
+    <div class="ngdialog-body op-modal--modal-body">
+      <invite-user-name-step
+        *ngIf="currentStep === steps.NAME"
+        (statusChanges)="setValid($event)"
+        (nextStep)="nextStep = $event"
+        (onSubmit)="advance()"
+      ></invite-user-name-step>
+      <invite-user-email-step
+        *ngIf="currentStep === steps.EMAIL"
+        (statusChanges)="setValid($event)"
+        (nextStep)="nextStep = $event"
+        (onSubmit)="advance()"
+      ></invite-user-email-step>
+      <p
+        *ngIf="currentStep === steps.COMPLETE"
+      >
+        Your wizard has completed!
+      </p>
+    </div>
+    <div class="op-modal--modal-footer">
+      <button
+        class="button -highlight"
+        *ngIf="currentStep === steps.COMPLETE"
+        (click)="closeMe($event)"
+        [textContent]="text.button_close"
+        [attr.title]="text.button_close"
+      >
+      </button>
+      <button
+        class="button -highlight"
+        *ngIf="currentStep !== steps.COMPLETE"
+        (click)="advance()"
+        [disabled]="!this.valid"
+        [textContent]="text.button_next"
+        [attr.title]="text.button_next"
+      >
+      </button>
+      <button
+        *ngIf="currentStep !== steps.COMPLETE"
+        (click)="closeMe($event)"
+        [attr.title]="text.button_cancel"
+        [textContent]="text.button_cancel"
+        class="confirm-form-submit--cancel button">
+      </button>
+    </div>
+  </div>
+</div>

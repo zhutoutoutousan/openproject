@@ -1,0 +1,13 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit.emit($event)">
+  <div class="form--field">
+    <div class="form--field-container">
+      <div class="form--select-container">
+        <label class="form--label" [textContent]="text.email"></label>
+        <input
+          type="email"
+          formControlName="email"
+          required>
+      </div>
+    </div>
+  </div>
+</form>
