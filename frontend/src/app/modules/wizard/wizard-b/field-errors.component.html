@@ -1,0 +1,11 @@
+<div *ngIf="field.invalid && (field.dirty || field.touched)"
+     class="alert alert-danger">
+
+  <div *ngIf="field.errors.required">
+    {{label}} is required.
+  </div>
+
+  <div *ngIf="field.errors.email">
+    {{label}} is not a valid email address.
+  </div>
+</div>

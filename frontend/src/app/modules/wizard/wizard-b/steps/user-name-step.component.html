@@ -9,13 +9,7 @@
           type="text"
         >
 
-        <div *ngIf="name.invalid && (name.dirty || name.touched)"
-             class="alert alert-danger">
-
-          <div *ngIf="name.errors.required">
-            Name is required.
-          </div>
-        </div>
+        <field-errors [field]="name" [label]="text.name"></field-errors>
       </div>
     </div>
   </div>

@@ -83,6 +83,7 @@ import {InviteUserWizardComponentB} from "core-app/modules/wizard/wizard-b/invit
 import {UserNameStepComponent} from "core-app/modules/wizard/wizard-b/steps/user-name-step.component";
 import {CommonModule} from "@angular/common";
 import {UserEmailStepComponent} from "core-app/modules/wizard/wizard-b/steps/user-email-step.component";
+import {FieldErrorsComponent} from "core-app/modules/wizard/wizard-b/field-errors.component";
 
 @NgModule({
   imports: [
@@ -181,6 +182,7 @@ import {UserEmailStepComponent} from "core-app/modules/wizard/wizard-b/steps/use
     InviteUserWizardComponentB,
     UserNameStepComponent,
     UserEmailStepComponent,
+    FieldErrorsComponent,
   ]
 })
 export class OpenProjectModule {
