@@ -35,13 +35,9 @@ import {StateService} from "@uirouter/core";
 import {BoardService} from "core-app/modules/boards/board/board.service";
 import {BoardActionsRegistryService} from "core-app/modules/boards/board/board-actions/board-actions-registry.service";
 import {HalResourceNotificationService} from "core-app/modules/hal/services/hal-resource-notification.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-
-export enum STEPS {
-  NAME = 1,
-  EMAIL = 2,
-  COMPLETE = 3
-}
+import {STEPS} from "core-app/modules/wizard/wizard-b/steps/step-definitions";
+import {UserNameStepComponent} from "core-app/modules/wizard/wizard-b/steps/user-name-step.component";
+import {UserEmailStepComponent} from "core-app/modules/wizard/wizard-b/steps/user-email-step.component";
 
 @Component({
   templateUrl: './invite-user-wizard.component.html'
@@ -57,6 +53,11 @@ export class InviteUserWizardComponentB extends OpModalComponent implements OnIn
   // Current designated next step upon confirmation
   nextStep:STEPS;
 
+  componentSteps = {
+    [STEPS.NAME]: UserNameStepComponent,
+    [STEPS.EMAIL]: UserEmailStepComponent
+  };
+
   // Whether the form control is valid
   public valid:boolean;
 
@@ -68,6 +69,11 @@ export class InviteUserWizardComponentB extends OpModalComponent implements OnIn
     button_close: 'Close'
   };
 
+  public referenceOutputs = {
+    onSubmit: () => this.advance(),
+    statusChanges: ($event:string) => this.setValid($event),
+    nextStep: ($event:STEPS) => this.nextStep = $event,
+  };
 
   constructor(readonly elementRef:ElementRef,
               @Inject(OpModalLocalsToken) public locals:OpModalLocalsMap,

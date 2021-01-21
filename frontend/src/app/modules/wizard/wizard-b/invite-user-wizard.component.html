@@ -16,18 +16,13 @@
     </div>
 
     <div class="ngdialog-body op-modal--modal-body">
-      <invite-user-name-step
-        *ngIf="currentStep === steps.NAME"
-        (statusChanges)="setValid($event)"
-        (nextStep)="nextStep = $event"
-        (onSubmit)="advance()"
-      ></invite-user-name-step>
-      <invite-user-email-step
-        *ngIf="currentStep === steps.EMAIL"
-        (statusChanges)="setValid($event)"
-        (nextStep)="nextStep = $event"
-        (onSubmit)="advance()"
-      ></invite-user-email-step>
+      <ng-container *ngFor="let item of componentSteps | keyvalue">
+        <ndc-dynamic
+          *ngIf="item.key == currentStep"
+          [ndcDynamicComponent]="item.value"
+          [ndcDynamicOutputs]="referenceOutputs">
+        </ndc-dynamic>
+      </ng-container>
       <p
         *ngIf="currentStep === steps.COMPLETE"
       >

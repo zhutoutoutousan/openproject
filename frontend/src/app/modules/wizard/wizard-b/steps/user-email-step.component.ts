@@ -28,9 +28,9 @@
 
 import {Component, EventEmitter, Output} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {STEPS} from "core-app/modules/wizard/wizard-b/invite-user-wizard-component-b.component";
 import {of} from "rxjs";
 import SubmitEvent = JQuery.SubmitEvent;
+import {STEPS} from "core-app/modules/wizard/wizard-b/steps/step-definitions";
 
 
 @Component({
