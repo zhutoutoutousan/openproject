@@ -33,7 +33,7 @@ export class OpModalService {
               private injector:Injector) {
 
     const hostElement = this.portalHostElement = document.createElement('div');
-    hostElement.classList.add('op-modals--overlay');
+    hostElement.classList.add('op-modal-overlay');
     document.body.appendChild(hostElement);
 
     // Listen to keyups on window to close context menus
