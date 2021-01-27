@@ -17,7 +17,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import {NgOptionHighlightModule} from "@ng-select/ng-option-highlight";
 import {of} from "rxjs";
 
-fdescribe('InviteUserWizardComponent', () => {
+describe('InviteUserWizardComponent', () => {
   let component:InviteUserWizardComponent;
   let fixture:ComponentFixture<InviteUserWizardComponent>;
   let hostElement:any;
