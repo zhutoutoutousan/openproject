@@ -34,8 +34,6 @@ import {OpContextMenuTrigger} from 'core-components/op-context-menu/handlers/op-
 import {States} from 'core-components/states.service';
 import {PaginationService} from 'core-components/table-pagination/pagination-service';
 import {MainMenuResizerComponent} from 'core-components/resizer/main-menu-resizer.component';
-import {ExternalQueryConfigurationService} from 'core-components/wp-table/external-configuration/external-query-configuration.service';
-import {ExternalRelationQueryConfigurationService} from 'core-components/wp-table/external-configuration/external-relation-query-configuration.service';
 import {ConfirmDialogModal} from "core-components/modals/confirm-dialog/confirm-dialog.modal";
 import {ConfirmDialogService} from "core-components/modals/confirm-dialog/confirm-dialog.service";
 import {DynamicContentModal} from "core-components/modals/modal-wrapper/dynamic-content.modal";
@@ -211,3 +209,5 @@ export function initializeServices(injector:Injector) {
     keyboardShortcuts.register();
   };
 }
+
+import './modules/store/test'
