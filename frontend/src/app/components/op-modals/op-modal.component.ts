@@ -18,6 +18,13 @@ export abstract class OpModalComponent extends UntilDestroyedMixin implements On
 
   public $element:JQuery;
 
+  /**
+  * Data to be returned.
+  * The closingEvent observable returns this OpModalComponent instance,
+  * where this data will be available (OpModalComponentInstance.data).
+  * */
+  data:unknown;
+
   /** Closing event called from the service when closing this modal */
   public closingEvent = new EventEmitter<this>();
 
