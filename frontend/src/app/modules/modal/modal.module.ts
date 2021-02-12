@@ -3,6 +3,7 @@ import {OpenprojectCommonModule} from "core-app/modules/common/openproject-commo
 import {OpModalService} from "./modal.service";
 import {OpModalWrapperAugmentService} from "./modal-wrapper-augment.service";
 import {OpModalHeaderComponent} from "./modal-header.component";
+import {OpModalOutletComponent} from "./modal-outlet.component";
 
 @NgModule({
   imports: [ OpenprojectCommonModule ],
@@ -11,6 +12,9 @@ import {OpModalHeaderComponent} from "./modal-header.component";
     OpModalService,
     OpModalWrapperAugmentService,
   ],
-  declarations: [ OpModalHeaderComponent ]
+  declarations: [
+    OpModalHeaderComponent,
+    OpModalOutletComponent,
+  ],
 })
 export class OpenprojectModalModule { }
