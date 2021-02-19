@@ -5,7 +5,7 @@ import {ConfigurationService} from 'core-app/modules/common/config/configuration
 import {WorkPackageViewColumnsService} from 'core-app/modules/work_packages/routing/wp-view-base/view-services/wp-view-columns.service';
 import {TabComponent} from 'core-components/wp-table/configuration-modal/tab-portal-outlet';
 import {BannersService} from "core-app/modules/common/enterprise/banners.service";
-import {DraggableOption} from "core-app/modules/common/draggable-autocomplete/draggable-autocomplete.component";
+import {DraggableOption} from "core-app/modules/autocompleters/draggable-autocomplete.component";
 
 @Component({
   templateUrl: './columns-tab.component.html'

@@ -30,10 +30,11 @@ import {AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output
 import {CurrentProjectService} from "core-components/projects/current-project.service";
 import {PathHelperService} from "core-app/modules/common/path-helper/path-helper.service";
 import {VersionResource} from "core-app/modules/hal/resources/version-resource";
-import {CreateAutocompleterComponent} from "core-app/modules/common/autocomplete/create-autocompleter.component";
 import {I18nService} from "core-app/modules/common/i18n/i18n.service";
 import {HalResourceNotificationService} from "core-app/modules/hal/services/hal-resource-notification.service";
 import {APIV3Service} from "core-app/modules/apiv3/api-v3.service";
+
+import {CreateAutocompleterComponent} from "./create-autocompleter.component";
 
 @Component({
   templateUrl: './create-autocompleter.component.html',

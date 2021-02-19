@@ -1,4 +1,4 @@
-import {UserAutocompleterComponent} from "core-app/modules/common/autocomplete/user-autocompleter.component";
+import {UserAutocompleterComponent} from "core-app/modules/autocompleters/user-autocompleter.component";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {InjectField} from "core-app/helpers/angular/inject-field.decorator";
@@ -10,7 +10,7 @@ import {PathHelperService} from "core-app/modules/common/path-helper/path-helper
 export const membersAutocompleterSelector = 'members-autocompleter';
 
 @Component({
-  templateUrl: '/app/modules/common/autocomplete/user-autocompleter.component.html',
+  templateUrl: '/app/modules/autocompleters/user-autocompleter.component.html',
   selector: membersAutocompleterSelector
 })
 export class MembersAutocompleterComponent extends UserAutocompleterComponent {

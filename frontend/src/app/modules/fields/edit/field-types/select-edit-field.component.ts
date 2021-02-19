@@ -31,7 +31,7 @@ import {HalResourceSortingService} from 'core-app/modules/hal/services/hal-resou
 import {CollectionResource} from 'core-app/modules/hal/resources/collection-resource';
 import {HalResource} from 'core-app/modules/hal/resources/hal-resource';
 import {EditFieldComponent} from '../edit-field.component';
-import {CreateAutocompleterComponent} from 'core-app/modules/common/autocomplete/create-autocompleter.component';
+import {CreateAutocompleterComponent} from 'core-app/modules/autocompleters/create-autocompleter.component';
 import {SelectAutocompleterRegisterService} from 'app/modules/fields/edit/field-types/select-autocompleter-register.service';
 import {from} from 'rxjs';
 import {map, tap} from 'rxjs/operators';

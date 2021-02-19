@@ -29,6 +29,7 @@
 import {NgModule} from '@angular/core';
 import {OpenprojectCommonModule} from "core-app/modules/common/openproject-common.module";
 import {OpenprojectWorkPackagesModule} from "core-app/modules/work_packages/openproject-work-packages.module";
+import {OpenprojectAutocompletersModule} from "core-app/modules/autocompleters/openproject-autocompleters.module";
 import {OpenprojectModalModule} from "core-app/modules/modal/modal.module";
 import {UIRouterModule} from "@uirouter/angular";
 import {BoardListComponent} from "core-app/modules/boards/board/board-list/board-list.component";
@@ -62,6 +63,7 @@ import {StatusBoardHeaderComponent} from "core-app/modules/boards/board/board-ac
     OpenprojectCommonModule,
     OpenprojectWorkPackagesModule,
     OpenprojectModalModule,
+    OpenprojectAutocompletersModule,
     DragScrollModule,
 
     // Dynamic Module for actions

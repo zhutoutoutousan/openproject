@@ -30,10 +30,12 @@ import {NgModule} from "@angular/core";
 import {MembersAutocompleterComponent} from "core-app/modules/members/members-autocompleter.component";
 import {NgSelectModule} from "@ng-select/ng-select";
 import {OpenprojectCommonModule} from "core-app/modules/common/openproject-common.module";
+import {OpenprojectAutocompletersModule} from "core-app/modules/autocompleters/openproject-autocompleters.module";
 
 @NgModule({
   imports: [
     OpenprojectCommonModule,
+    OpenprojectAutocompletersModule,
     NgSelectModule
   ],
   exports: [  ],

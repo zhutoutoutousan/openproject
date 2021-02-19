@@ -32,6 +32,7 @@ import {OpenprojectModalModule} from "core-app/modules/modal/modal.module";
 import {OpenprojectEditorModule} from 'core-app/modules/editor/openproject-editor.module';
 import {OpenprojectAttachmentsModule} from "core-app/modules/attachments/openproject-attachments.module";
 import {OpenprojectCommonModule} from "core-app/modules/common/openproject-common.module";
+import {OpenprojectAutocompletersModule} from "core-app/modules/autocompleters/openproject-autocompleters.module";
 import {EditFieldService} from "core-app/modules/fields/edit/edit-field.service";
 import {DisplayFieldService} from "core-app/modules/fields/display/display-field.service";
 import {initializeCoreEditFields} from "core-app/modules/fields/edit/edit-field.initializer";
@@ -68,6 +69,7 @@ import {DisplayFieldComponent} from "core-app/modules/fields/display/display-fie
     OpenprojectAccessibilityModule,
     OpenprojectEditorModule,
     OpenprojectModalModule,
+    OpenprojectAutocompletersModule,
   ],
   exports: [
     EditFieldControlsComponent,

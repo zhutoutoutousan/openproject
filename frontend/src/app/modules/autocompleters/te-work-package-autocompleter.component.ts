@@ -34,10 +34,11 @@ import {
  EventEmitter,
  ChangeDetectorRef,
 } from '@angular/core';
-import {WorkPackageAutocompleterComponent} from "core-app/modules/common/autocomplete/wp-autocompleter.component";
 import {I18nService} from "core-app/modules/common/i18n/i18n.service";
 import {CurrentProjectService} from "core-components/projects/current-project.service";
 import {PathHelperService} from "core-app/modules/common/path-helper/path-helper.service";
+
+import {WorkPackageAutocompleterComponent} from "./wp-autocompleter.component";
 
 export type TimeEntryWorkPackageAutocompleterMode = 'all'|'recent';
 

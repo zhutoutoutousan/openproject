@@ -4,7 +4,7 @@ import {QueryResource} from "core-app/modules/hal/resources/query-resource";
 import {BoardActionService} from "core-app/modules/boards/board/board-actions/board-action.service";
 import {HalResource} from "core-app/modules/hal/resources/hal-resource";
 import {VersionResource} from "core-app/modules/hal/resources/version-resource";
-import {VersionAutocompleterComponent} from "core-app/modules/common/autocomplete/version-autocompleter.component";
+import {VersionAutocompleterComponent} from "core-app/modules/autocompleters/version-autocompleter.component";
 import {OpContextMenuItem} from "core-components/op-context-menu/op-context-menu.types";
 import {LinkHandling} from "core-app/modules/common/link-handling/link-handling";
 import {StateService} from "@uirouter/core";

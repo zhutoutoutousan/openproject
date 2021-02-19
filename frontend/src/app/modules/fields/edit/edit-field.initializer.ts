@@ -39,10 +39,10 @@ import {DateEditFieldComponent} from "core-app/modules/fields/edit/field-types/d
 import {FormattableEditFieldComponent} from "core-app/modules/fields/edit/field-types/formattable-edit-field.component";
 import {WorkPackageCommentFieldComponent} from "core-components/work-packages/work-package-comment/wp-comment-field.component";
 import {SelectAutocompleterRegisterService} from "core-app/modules/fields/edit/field-types/select-autocompleter-register.service";
-import {VersionAutocompleterComponent} from "core-app/modules/common/autocomplete/version-autocompleter.component";
+import {VersionAutocompleterComponent} from "core-app/modules/autocompleters/version-autocompleter.component";
+import {WorkPackageAutocompleterComponent} from "core-app/modules/autocompleters/wp-autocompleter.component";
 import {ProjectStatusEditFieldComponent} from "core-app/modules/fields/edit/field-types/project-status-edit-field.component";
 import {PlainFormattableEditFieldComponent} from "core-app/modules/fields/edit/field-types/plain-formattable-edit-field.component";
-import {WorkPackageAutocompleterComponent} from "core-app/modules/common/autocomplete/wp-autocompleter.component";
 import {TimeEntryWorkPackageEditFieldComponent} from "core-app/modules/fields/edit/field-types/te-work-package-edit-field.component";
 import {CombinedDateEditFieldComponent} from "core-app/modules/fields/edit/field-types/combined-date-edit-field.component";
 

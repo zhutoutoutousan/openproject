@@ -30,6 +30,13 @@ import {Injector, NgModule} from '@angular/core';
 import {OpenprojectCommonModule} from 'core-app/modules/common/openproject-common.module';
 import {OpenprojectFieldsModule} from 'core-app/modules/fields/openproject-fields.module';
 import {OpenprojectModalModule} from 'core-app/modules/modal/modal.module';
+import {OpenprojectInviteUserModalModule} from "core-app/modules/invite-user-modal/invite-user-modal.module";
+import {OpenprojectAttachmentsModule} from 'core-app/modules/attachments/openproject-attachments.module';
+import {OpenprojectProjectsModule} from "core-app/modules/projects/openproject-projects.module";
+import {OpenprojectBcfModule} from "core-app/modules/bim/bcf/openproject-bcf.module";
+import {OpenprojectEditorModule} from 'core-app/modules/editor/openproject-editor.module';
+import {OpenprojectAutocompletersModule} from 'core-app/modules/autocompleters/openproject-autocompleters.module';
+
 import {HookService} from 'core-app/modules/plugins/hook-service';
 import {
   GroupDescriptor,
@@ -66,7 +73,6 @@ import {UserActivityComponent} from 'core-components/wp-activity/user/user-activ
 import {RevisionActivityComponent} from 'core-components/wp-activity/revision/revision-activity.component';
 import {ActivityLinkComponent} from 'core-components/wp-activity/activity-link.component';
 import {WorkPackageActivityTabComponent} from 'core-components/wp-single-view-tabs/activity-panel/activity-tab.component';
-import {OpenprojectAttachmentsModule} from 'core-app/modules/attachments/openproject-attachments.module';
 import {WpCustomActionComponent} from 'core-components/wp-custom-actions/wp-custom-actions/wp-custom-action.component';
 import {WpCustomActionsComponent} from 'core-components/wp-custom-actions/wp-custom-actions.component';
 import {WorkPackageRelationsCountComponent} from 'core-components/work-packages/wp-relations-count/wp-relations-count.component';
@@ -120,7 +126,6 @@ import {WpDestroyModal} from 'core-components/modals/wp-destroy-modal/wp-destroy
 import {QuerySharingForm} from 'core-components/modals/share-modal/query-sharing-form.component';
 import {EmbeddedTablesMacroComponent} from 'core-components/wp-table/embedded/embedded-tables-macro.component';
 import {WpButtonMacroModal} from 'core-components/modals/editor/macro-wp-button-modal/wp-button-macro.modal';
-import {OpenprojectEditorModule} from 'core-app/modules/editor/openproject-editor.module';
 import {WorkPackageTableSumsRowController} from 'core-components/wp-table/wp-table-sums-row/wp-table-sums-row.directive';
 import {ExternalQueryConfigurationComponent} from 'core-components/wp-table/external-configuration/external-query-configuration.component';
 import {ExternalQueryConfigurationService} from 'core-components/wp-table/external-configuration/external-query-configuration.service';
@@ -145,7 +150,6 @@ import {QueryFiltersService} from "core-components/wp-query/query-filters.servic
 import {WorkPackageCardViewComponent} from "core-components/wp-card-view/wp-card-view.component";
 import {WorkPackageIsolatedQuerySpaceDirective} from "core-app/modules/work_packages/query-space/wp-isolated-query-space.directive";
 import {WorkPackageRelationsService} from "core-components/wp-relations/wp-relations.service";
-import {OpenprojectBcfModule} from "core-app/modules/bim/bcf/openproject-bcf.module";
 import {WorkPackageRelationsAutocomplete} from "core-components/wp-relations/wp-relations-create/wp-relations-autocomplete/wp-relations-autocomplete.component";
 import {CustomDateActionAdminComponent} from 'core-components/wp-custom-actions/date-action/custom-date-action-admin.component';
 import {WorkPackagesTableConfigMenu} from "core-components/wp-table/config-menu/config-menu.component";
@@ -154,7 +158,6 @@ import {WorkPackageViewToggleButton} from "core-components/wp-buttons/wp-view-to
 import {WorkPackagesGridComponent} from "core-components/wp-grid/wp-grid.component";
 import {WorkPackageViewDropdownMenuDirective} from "core-components/op-context-menu/handlers/wp-view-dropdown-menu.directive";
 import {HalEventsService} from "core-app/modules/hal/services/hal-events.service";
-import {OpenprojectProjectsModule} from "core-app/modules/projects/openproject-projects.module";
 import {WorkPackageNotificationService} from "core-app/modules/work_packages/notifications/work-package-notification.service";
 import {WorkPackageEditActionsBarComponent} from "core-app/modules/common/edit-actions-bar/wp-edit-actions-bar.component";
 import {HalResource} from "core-app/modules/hal/resources/hal-resource";
@@ -186,6 +189,10 @@ import {WorkPackageGroupToggleDropdownMenuDirective} from "core-components/op-co
     OpenprojectProjectsModule,
 
     OpenprojectModalModule,
+
+    OpenprojectInviteUserModalModule,
+
+    OpenprojectAutocompletersModule,
   ],
   providers: [
     // Notification service

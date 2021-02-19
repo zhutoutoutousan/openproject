@@ -38,7 +38,7 @@ import {BoardActionsRegistryService} from "core-app/modules/boards/board/board-a
 import {BoardActionService} from "core-app/modules/boards/board/board-actions/board-action.service";
 import {HalResource} from "core-app/modules/hal/resources/hal-resource";
 import {AngularTrackingHelpers} from "core-components/angular/tracking-functions";
-import {CreateAutocompleterComponent} from "core-app/modules/common/autocomplete/create-autocompleter.component";
+import {CreateAutocompleterComponent} from "core-app/modules/autocompleters/create-autocompleter.component";
 import {of} from "rxjs";
 import {DebouncedRequestSwitchmap, errorNotificationHandler} from "core-app/helpers/rxjs/debounced-input-switchmap";
 import {ValueOption} from "core-app/modules/fields/edit/field-types/select-edit-field.component";

@@ -28,6 +28,7 @@
 
 import {OpenprojectCommonModule} from 'core-app/modules/common/openproject-common.module';
 import {OpenprojectFieldsModule} from 'core-app/modules/fields/openproject-fields.module';
+import {OpenprojectAutocompletersModule} from 'core-app/modules/autocompleters/openproject-autocompleters.module';
 import {NgModule} from '@angular/core';
 import {OpenprojectHalModule} from "core-app/modules/hal/openproject-hal.module";
 
@@ -39,6 +40,7 @@ import {OpenprojectHalModule} from "core-app/modules/hal/openproject-hal.module"
 
     OpenprojectHalModule,
     OpenprojectFieldsModule,
+    OpenprojectAutocompletersModule,
   ]
 })
 export class OpenprojectProjectsModule {
