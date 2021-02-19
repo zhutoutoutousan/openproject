@@ -1,8 +1,6 @@
 import {Component, Inject, OnInit, Output, EventEmitter, Optional, HostBinding} from '@angular/core';
-import {InviteUserModalComponent} from "core-app/modules/common/invite-user-modal/invite-user.component";
 import {EditFieldComponent, OpEditingPortalSchemaToken} from "core-app/modules/fields/edit/edit-field.component";
 import {IFieldSchema} from "core-app/modules/fields/field.base";
-import {OpModalService} from "core-components/op-modals/op-modal.service";
 import {CurrentProjectService} from "core-components/projects/current-project.service";
 import {NgSelectComponent} from "@ng-select/ng-select";
 import {SelectEditFieldComponent} from "core-app/modules/fields/edit/field-types/select-edit-field.component";
@@ -10,6 +8,9 @@ import {MultiSelectEditFieldComponent} from "core-app/modules/fields/edit/field-
 import {I18nService} from "core-app/modules/common/i18n/i18n.service";
 import {PermissionsService} from "core-app/core/services/permissions/permissions.service";
 import {HalResource} from "core-app/modules/hal/resources/hal-resource";
+
+import {InviteUserModalComponent} from "core-app/modules/invite-user-modal/invite-user.component";
+import {OpModalService} from "core-app/modules/modal/modal.service";
 
 @Component({
   selector: 'op-invite-user-button',

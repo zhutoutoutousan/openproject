@@ -76,6 +76,8 @@ import {globalDynamicComponents} from "core-app/global-dynamic-components.const"
 import {OpenprojectMembersModule} from "core-app/modules/members/members.module";
 import {OpenprojectEnterpriseModule} from "core-components/enterprise/openproject-enterprise.module";
 import {OpenprojectAugmentingModule} from "core-app/modules/augmenting/openproject-augmenting.module";
+import {OpenprojectInviteUserModalModule} from "core-app/modules/invite-user-modal/invite-user-modal.module";
+import {OpenprojectModalModule} from "core-app/modules/modal/modal.module";
 import {RevitAddInSettingsButtonService} from "core-app/modules/bim/revit_add_in/revit-add-in-settings-button.service";
 
 @NgModule({
@@ -138,6 +140,12 @@ import {RevitAddInSettingsButtonService} from "core-app/modules/bim/revit_add_in
 
     // Augmenting Module
     OpenprojectAugmentingModule,
+
+    // Modals
+    OpenprojectModalModule,
+
+    // Invite user modal
+    OpenprojectInviteUserModalModule,
   ],
   providers: [
     { provide: States, useValue: new States() },

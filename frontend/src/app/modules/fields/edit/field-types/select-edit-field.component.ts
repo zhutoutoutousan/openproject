@@ -38,8 +38,8 @@ import {map, tap} from 'rxjs/operators';
 import {HalResourceNotificationService} from 'core-app/modules/hal/services/hal-resource-notification.service';
 import {InjectField} from 'core-app/helpers/angular/inject-field.decorator';
 import {PermissionsService} from 'core-app/core/services/permissions/permissions.service';
-import {OpModalService} from 'core-app/components/op-modals/op-modal.service';
-import {InviteUserModalComponent} from 'core-app/modules/common/invite-user-modal/invite-user.component';
+import {OpModalService} from 'core-app/modules/modal/modal.service';
+import {InviteUserModalComponent} from 'core-app/modules/invite-user-modal/invite-user.component';
 
 export interface ValueOption {
   name:string;
@@ -53,6 +53,7 @@ export class SelectEditFieldComponent extends EditFieldComponent implements OnIn
   @InjectField() selectAutocompleterRegister:SelectAutocompleterRegisterService;
   @InjectField() halNotification:HalResourceNotificationService;
   @InjectField() halSorting:HalResourceSortingService;
+  @InjectField() permissionsService:PermissionsService;
 
   public availableOptions:any[];
   public valueOptions:ValueOption[];
