@@ -37,7 +37,6 @@ import {
 } from '@angular/core';
 import {NgSelectComponent} from "@ng-select/ng-select";
 import {I18nService} from "core-app/modules/common/i18n/i18n.service";
-import {CurrentProjectService} from "core-components/projects/current-project.service";
 import {PathHelperService} from "core-app/modules/common/path-helper/path-helper.service";
 import {HalResource} from "core-app/modules/hal/resources/hal-resource";
 import {AddTagFn} from "@ng-select/ng-select/lib/ng-select.component";
@@ -73,7 +72,6 @@ export class CreateAutocompleterComponent implements AfterViewInit {
   @Output() public onAfterViewInit = new EventEmitter<this>();
   @Output() public onAddNew = new EventEmitter<this>();
 
-
   @ViewChild('ngSelectComponent') public ngSelectComponent:NgSelectComponent;
 
   public text:{ [key:string]:string } = {
@@ -86,7 +84,6 @@ export class CreateAutocompleterComponent implements AfterViewInit {
 
   constructor(readonly I18n:I18nService,
               readonly cdRef:ChangeDetectorRef,
-              readonly currentProject:CurrentProjectService,
               readonly pathHelper:PathHelperService,
 ) { }
 

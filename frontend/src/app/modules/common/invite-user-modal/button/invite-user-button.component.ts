@@ -1,6 +1,6 @@
-import {Component, Inject, OnInit, Output, EventEmitter, Optional, HostBinding} from '@angular/core';
+import {Component, Inject, OnInit, Output, EventEmitter, Optional} from '@angular/core';
 import {InviteUserModalComponent} from "core-app/modules/common/invite-user-modal/invite-user.component";
-import {EditFieldComponent, OpEditingPortalSchemaToken} from "core-app/modules/fields/edit/edit-field.component";
+import {OpEditingPortalSchemaToken} from "core-app/modules/fields/edit/edit-field.component";
 import {IFieldSchema} from "core-app/modules/fields/field.base";
 import {OpModalService} from "core-components/op-modals/op-modal.service";
 import {CurrentProjectService} from "core-components/projects/current-project.service";
@@ -28,6 +28,13 @@ export class InviteUserButtonComponent implements OnInit {
   }
   get parentIsMultiSelectEditFieldComponent() {
     return !!this.multiSelectEditFieldComponent;
+  }
+  get projectId() {
+    // TODO: Should we default to currentProjectService.id?
+    // Is it safe to rely on this.selectEditFieldComponent?.resource to get the projectId?
+    return this.selectEditFieldComponent?.resource?.$source?._embedded?.project?.id ||
+      this.multiSelectEditFieldComponent?.resource?.$source?._embedded?.project?.id ||
+      this.currentProjectService.id;
   }
 
   text = {
@@ -60,7 +67,7 @@ export class InviteUserButtonComponent implements OnInit {
 
   openInviteUserModal() {
     const inviteModal = this.opModalService.show(InviteUserModalComponent, 'global', {
-      projectId: this.currentProjectService.id,
+      projectId: this.projectId,
     });
 
     inviteModal
