@@ -79,7 +79,7 @@ export class DynamicFieldsService {
           type: 'number',
           locale: I18n.locale,
           bindLabel: 'name',
-          searchable: false,
+          searchable: true,
           virtualScroll: true,
           typeahead: false,
           clearOnBackspace: false,
