@@ -87,7 +87,13 @@ module API
           }
         end
 
-        polymorphic_resource :context
+        associated_resource :project
+        associated_resource :journal,
+                            as: :activity,
+                            representer: ::API::V3::Activities::ActivityRepresenter,
+                            v3_path: :activity,
+                            skip_render: ->(*) { represented.journal_id.nil? }
+
         polymorphic_resource :resource
 
         def _type
