@@ -13,6 +13,7 @@ class AnnouncementsController < ApplicationController
 
     if @announcement.save
       flash[:notice] = t(:notice_successful_update)
+
     end
 
     redirect_to action: 'edit'
@@ -29,6 +30,6 @@ class AnnouncementsController < ApplicationController
   end
 
   def announcement_params
-    params.require(:announcement).permit('text', 'show_until', 'active')
+    params.require(:announcement).permit('text', 'title', 'show_until', 'active')
   end
 end
