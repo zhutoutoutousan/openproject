@@ -12,8 +12,7 @@ function triggerKeyDownEvent(element:DebugElement, which:number, key = ''):void 
   element.triggerEventHandler('keydown', {
     which: which,
     key: key,
-    preventDefault: () => {
-    },
+    preventDefault: () => {},
   });
 }
 

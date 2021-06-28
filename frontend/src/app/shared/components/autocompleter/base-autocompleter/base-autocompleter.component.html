@@ -86,32 +86,32 @@
 
 <ng-template let-item  #defaultOption [ngSwitch]="true">
   <ng-container *ngSwitchCase="resource === 'work_packages' || resource === 'parent-child'">
-    <div class="op-autocompleter--option-wrapper">
+    <div class="op-base-autocompleter--option-wrapper">
       <op-principal
         *ngIf="item.author && item.author.href"
-        data-class-list="avatar op-autocompleter-author-avatar hidden-for-mobile"
+        data-class-list="avatar op-base-autocompleter-author-avatar hidden-for-mobile"
         [principal]="item.author"
         [hide-name]="true"
       ></op-principal>
-      <span class="op-autocompleter-wp-subject"> 
+      <span class="op-base-autocompleter-wp-subject"> 
       {{item.subject}} 
       </span>
 
-      <div class="op-autocompleter--wp-content">
+      <div class="op-base-autocompleter--wp-content">
         <span
           [textContent]="item.project?.name" 
-          class="op-autocompleter--wp-project"
+          class="op-base-autocompleter--wp-project"
         ></span>
 
         <a
-          class="op-autocompleter--wp-id"
+          class="op-base-autocompleter--wp-id"
           [ngClass]="uiStateLinkClass"
         >#{{item.id}}</a>
 
         <span
           [textContent]="item.status?.name"
           [ngClass]="highlighting('status',item.status?.id)"
-          class="op-autocompleter--wp-status"
+          class="op-base-autocompleter--wp-status"
         ></span>
 
       </div>

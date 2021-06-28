@@ -14,17 +14,17 @@ import { AngularTrackingHelpers } from "core-app/shared/helpers/angular/tracking
 import { OpAutocompleterFooterTemplateDirective } from "core-app/shared/components/autocompleter/autocompleter-footer-template/op-autocompleter-footer-template.directive";
 
 @Component({
-  selector: 'op-autocompleter',
+  selector: 'op-base-autocompleter',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl:'./op-autocompleter.component.html',
-  styleUrls: ['./op-autocompleter.component.sass'],
+  templateUrl:'./op-base-autocompleter.component.html',
+  styleUrls: ['./op-base-autocompleter.component.sass'],
   providers: [OpAutocompleterService]
 })
 // It is component that you can use whenever you need an autocompleter
 // it has all inputs and outputs of ng-select
 // in order to use it, you only need to pass the data type and its filters
 // you also can change the value of ng-select default options by changing @inputs and @outputs
-export class OpAutocompleterComponent extends UntilDestroyedMixin implements AfterViewInit{
+export class OpBaseAutocompleterComponent extends UntilDestroyedMixin implements AfterViewInit{
 
   @Input() public filters?:IAPIFilter[] = [];
   @Input() public resource:resource;
