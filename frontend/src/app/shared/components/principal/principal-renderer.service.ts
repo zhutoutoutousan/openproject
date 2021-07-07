@@ -82,7 +82,7 @@ export class PrincipalRendererService {
   private renderAvatar(
     principal:PrincipalLike,
     options:AvatarOptions,
-    type:PrincipalType,
+    type:PrincipalType|null,
   ) {
     const userInitials = this.getInitials(principal.name);
     const colorCode = this.colors.toHsl(principal.name);
@@ -90,8 +90,12 @@ export class PrincipalRendererService {
     const fallback = document.createElement('div');
     fallback.classList.add('op-avatar');
     fallback.classList.add(`op-avatar_${options.size}`);
-    fallback.classList.add(`op-avatar_${type.replace('_', '-')}`);
     fallback.classList.add('op-avatar--fallback');
+
+    if (type) {
+      fallback.classList.add(`op-avatar_${type.replace('_', '-')}`);
+    }
+
     fallback.textContent = userInitials;
 
     if (type === "placeholder_user") {
