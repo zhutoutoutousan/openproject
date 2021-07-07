@@ -117,7 +117,7 @@ export class TimeEntryCalendarComponent implements AfterViewInit {
     slotMaxTime: `${this.maxHour}:00:00`,
     events: this.calendarEventsFunction.bind(this),
     eventOverlap: (stillEvent:any) => !stillEvent.classNames.includes(TIME_ENTRY_CLASS_NAME),
-    plugins: [timeGrid, interactionPlugin]
+    plugins: [timeGrid, interactionPlugin as any]
   };
 
   constructor(readonly states:States,
@@ -150,7 +150,7 @@ export class TimeEntryCalendarComponent implements AfterViewInit {
     this.ucCalendar.getApi().setOption('eventClick', (event:CalendarViewEvent) => {
       this.dispatchEventClick(event);
     });
-    this.ucCalendar.getApi().setOption('eventDrop', (event:CalendarMoveEvent) => {
+    this.ucCalendar.getApi().setOption('eventDrop' as any, (event:CalendarMoveEvent) => {
       this.moveEvent(event);
     });
   }
