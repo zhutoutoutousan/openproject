@@ -29,6 +29,8 @@
 import { OPSharedModule } from 'core-app/shared/shared.module';
 import { NgModule } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
+import resourceCommonPlugin from '@fullcalendar/resource-common';
 import { WorkPackagesCalendarEntryComponent } from "core-app/shared/components/calendar/wp-calendar-entry/wp-calendar-entry.component";
 import { WorkPackagesCalendarController } from "core-app/shared/components/calendar/wp-calendar/wp-calendar.component";
 import { OpenprojectWorkPackagesModule } from "core-app/features/work-packages/openproject-work-packages.module";
@@ -38,6 +40,10 @@ import { OpenprojectFieldsModule } from "core-app/shared/components/fields/openp
 import { OpenprojectTimeEntriesModule } from "core-app/shared/components/time_entries/openproject-time-entries.module";
 
 const menuItemClass = 'calendar-menu-item';
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  resourceTimelinePlugin as any,
+]);
 
 export const CALENDAR_ROUTES:Ng2StateDeclaration[] = [
   {
