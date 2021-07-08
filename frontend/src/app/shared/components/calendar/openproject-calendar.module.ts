@@ -38,6 +38,7 @@ import { Ng2StateDeclaration, UIRouterModule } from "@uirouter/angular";
 import { TimeEntryCalendarComponent } from "core-app/shared/components/calendar/te-calendar/te-calendar.component";
 import { OpenprojectFieldsModule } from "core-app/shared/components/fields/openproject-fields.module";
 import { OpenprojectTimeEntriesModule } from "core-app/shared/components/time_entries/openproject-time-entries.module";
+import { PlanningBoardComponent } from "core-app/shared/components/calendar/planning-board/planning-board.component";
 
 const menuItemClass = 'calendar-menu-item';
 
@@ -84,6 +85,7 @@ export const CALENDAR_ROUTES:Ng2StateDeclaration[] = [
     WorkPackagesCalendarEntryComponent,
     WorkPackagesCalendarController,
     TimeEntryCalendarComponent,
+    PlanningBoardComponent,
   ],
   exports: [
     WorkPackagesCalendarController,

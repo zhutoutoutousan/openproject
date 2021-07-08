@@ -1,0 +1,18 @@
+<!-- position: relative added in order for the loading indicator to be positioned correctly -->
+<div class="wp-calendar--container loading-indicator--location"
+     [attr.data-indicator-name]="'table'"
+     style="position: relative">
+    <full-calendar #ucCalendar
+                   *ngIf="calendarOptions"
+                   [options]="calendarOptions">
+    </full-calendar>
+    <ng-template #fcEventContent let-event='event'>
+        <wp-single-card [workPackage]="event.extendedProps.workPackage"></wp-single-card>
+    </ng-template>
+
+    <ng-template #resourceContent let-resource="resource">
+        <op-principal
+            [principal]="resource.extendedProps.user"
+        ></op-principal>
+    </ng-template>
+</div>
