@@ -169,6 +169,7 @@ export class PlanningBoardComponent extends UntilDestroyedMixin implements OnIni
       const exclusiveEnd = moment(endDate).add(1, 'days').format('YYYY-MM-DD');
 
       return {
+        id: workPackage.href + (workPackage.assignee?.href || 'no-assignee'),
         resourceId: workPackage.assignee?.href,
         title: workPackage.subject,
         start: startDate,
