@@ -40,6 +40,7 @@ import { QueryColumn } from "core-app/features/work-packages/components/wp-query
 import { QueryResource } from "core-app/features/hal/resources/query-resource";
 import { HalEventsService } from "core-app/features/hal/services/hal-events.service";
 import { WorkPackageResource } from "core-app/features/hal/resources/work-package-resource";
+import { WorkPackageViewFocusService } from "core-app/features/work-packages/routing/wp-view-base/view-services/wp-view-focus.service";
 
 export type CardViewOrientation = 'horizontal'|'vertical';
 
@@ -111,6 +112,7 @@ export class WorkPackageCardViewComponent extends UntilDestroyedMixin implements
               readonly cdRef:ChangeDetectorRef,
               readonly pathHelper:PathHelperService,
               readonly wpTableSelection:WorkPackageViewSelectionService,
+              readonly wpTableFocus:WorkPackageViewFocusService,
               readonly wpViewOrder:WorkPackageViewOrderService,
               readonly cardView:WorkPackageCardViewService,
               readonly cardDragDrop:WorkPackageCardDragAndDropService,
@@ -154,6 +156,15 @@ export class WorkPackageCardViewComponent extends UntilDestroyedMixin implements
         this.workPackages = this.wpViewOrder.orderedWorkPackages();
         this.cardView.updateRenderedCardsValues(this.workPackages);
         this.isResultEmpty = this.workPackages.length === 0;
+        this.cdRef.detectChanges();
+      });
+
+    // Update selection state
+    this.wpTableSelection.live$()
+      .pipe(
+        this.untilDestroyed()
+      )
+      .subscribe(() => {
         this.cdRef.detectChanges();
       });
   }
@@ -215,6 +226,15 @@ export class WorkPackageCardViewComponent extends UntilDestroyedMixin implements
     classes += this.shrinkOnMobile ? ' -shrink' : '';
 
     return classes;
+  }
+
+  public onCardLinkClicked({ workPackageId }:{workPackageId:string; requestedState:string}):void {
+    this.wpTableSelection.setSelection(workPackageId, this.cardView.findRenderedCard(`wp-row-${workPackageId}`));
+    this.wpTableFocus.updateFocus(workPackageId);
+  }
+
+  public isSelected(workPackage:WorkPackageResource):boolean {
+    return this.wpTableSelection.isSelected(workPackage.id!);
   }
 
   /**

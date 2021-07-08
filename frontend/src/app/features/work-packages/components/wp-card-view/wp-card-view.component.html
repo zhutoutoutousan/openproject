@@ -18,10 +18,11 @@
                     [showRemoveButton]="cardsRemovable"
                     [highlightingMode]="highlightingMode"
                     [draggable]="this.canDragOutOf(wp)"
+                    [selected]="isSelected(wp)"
                     [orientation]="orientation"
                     [shrinkOnMobile]="shrinkOnMobile"
                     (onRemove)="removeCard(wp)"
-                    (stateLinkClicked)="stateLinkClicked.emit($event)">
+                    (stateLinkClicked)="onCardLinkClicked($event)">
     </wp-single-card>
 
     <hr *ngIf="shrinkOnMobile"
