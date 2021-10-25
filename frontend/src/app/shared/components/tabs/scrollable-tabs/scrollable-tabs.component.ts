@@ -24,7 +24,7 @@ import { trackByProperty } from 'core-app/shared/helpers/angular/tracking-functi
 })
 
 export class ScrollableTabsComponent implements AfterViewInit, AfterViewChecked, OnChanges {
-  @HostBinding('class') get classNames() {
+  @HostBinding('class') get classNames():string {
     return [
       'op-scrollable-tabs',
       ...this.classes,
