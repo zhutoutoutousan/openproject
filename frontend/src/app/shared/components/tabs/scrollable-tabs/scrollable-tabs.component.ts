@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  AfterViewChecked,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -22,7 +23,7 @@ import { trackByProperty } from 'core-app/shared/helpers/angular/tracking-functi
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class ScrollableTabsComponent implements AfterViewInit, OnChanges {
+export class ScrollableTabsComponent implements AfterViewInit, AfterViewChecked, OnChanges {
   @HostBinding('class') get classNames() {
     return [
       'op-scrollable-tabs',
@@ -64,7 +65,9 @@ export class ScrollableTabsComponent implements AfterViewInit, OnChanges {
   ngAfterViewInit():void {
     this.container = this.scrollContainer.nativeElement;
     this.pane = this.scrollPane.nativeElement;
+  }
 
+  ngAfterViewChecked():void {
     this.updateScrollableArea();
   }
 
