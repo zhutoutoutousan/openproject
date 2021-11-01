@@ -1,11 +1,22 @@
 import {
-  Component, ContentChild, HostBinding, Input, Optional,
+  Component,
+  ContentChild,
+  HostBinding,
+  Input,
+  Optional,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
-import { AbstractControl, FormGroupDirective, NgControl } from '@angular/forms';
+import {
+  AbstractControl,
+  FormGroupDirective,
+  NgControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'op-form-field',
   templateUrl: './form-field.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OpFormFieldComponent {
   @HostBinding('class.op-form-field') className = true;
@@ -33,6 +44,7 @@ export class OpFormFieldComponent {
   @ContentChild(NgControl) ngControl:NgControl;
 
   internalID = `op-form-field-${+new Date()}`;
+  showErrorMessage = false;
 
   get errorsID() {
     return `${this.internalID}-errors`;
@@ -50,23 +62,39 @@ export class OpFormFieldComponent {
     return this.ngControl?.control || this.control;
   }
 
-  get showErrorMessage():boolean {
-    if (!this.formControl) {
+  private setShowErrorMessage():void {
+    this.showErrorMessage = (() => {
+      if (!this.formControl) {
+        return false;
+      }
+
+      if (this.showValidationErrorOn === 'submit') {
+        return this.formControl.invalid && this._formGroupDirective?.submitted;
+      } if (this.showValidationErrorOn === 'blur') {
+        return this.formControl.invalid && this.formControl.touched;
+      } if (this.showValidationErrorOn === 'change') {
+        return this.formControl.invalid && this.formControl.dirty;
+      }
+
       return false;
-    }
-
-    if (this.showValidationErrorOn === 'submit') {
-      return this.formControl.invalid && this._formGroupDirective?.submitted;
-    } if (this.showValidationErrorOn === 'blur') {
-      return this.formControl.invalid && this.formControl.touched;
-    } if (this.showValidationErrorOn === 'change') {
-      return this.formControl.invalid && this.formControl.dirty;
-    }
-
-    return false;
+    })();
   }
 
   constructor(
+    cdr: ChangeDetectorRef,
     @Optional() private _formGroupDirective:FormGroupDirective,
-  ) {}
+  ) {
+    // Hacky fix for the change detection issue.
+    // One problem with this is that if the formcontrol gets applied lazily or changes 
+    // during the component lifecycle, that change will not be picked up.
+    this.setShowErrorMessage();
+    if (this.formControl) {
+      this.formControl.statusChanges.subscribe(() => {
+        this.setShowErrorMessage();
+      });
+      this.formControl.valueChanges.subscribe(() => {
+        this.setShowErrorMessage();
+      });
+    }
+  }
 }
