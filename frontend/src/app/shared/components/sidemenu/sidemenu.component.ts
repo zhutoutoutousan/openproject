@@ -1,11 +1,10 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   Input,
   HostBinding,
 } from '@angular/core';
-import { I18nService } from 'core-app/core/i18n/i18n.service';
+import { Subject } from 'rxjs';
 
 export interface IOpSidemenuItem {
   title:string;
@@ -27,21 +26,15 @@ export interface IOpSidemenuItem {
 export class OpSidemenuComponent {
   @HostBinding('class.op-sidemenu') className = true;
 
-  @HostBinding('class.op-sidemenu_collapsed') collapsed = false;
-
   @Input() items:IOpSidemenuItem[] = [];
 
   @Input() title:string;
 
   @Input() collapsible = true;
 
-  constructor(
-    readonly cdRef:ChangeDetectorRef,
-    readonly I18n:I18nService,
-  ) {
-  }
+  public collapsed$ = new Subject();
 
-  toggleCollapsed():void {
-    this.collapsed = !this.collapsed;
+  constructor() {
+    this.collapsed$.next(false);
   }
 }

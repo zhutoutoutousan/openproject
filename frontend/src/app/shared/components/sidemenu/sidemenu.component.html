@@ -1,26 +1,29 @@
-<button
-  class="op-sidemenu--title"
-  type="button"
-  (click)="toggleCollapsed()"
-  *ngIf="title && collapsible"
->
-  <span class="icon3 icon-small"
-        [ngClass]="collapsed ? 'icon-arrow-down1' : 'icon-arrow-up1'"
-        aria-hidden="true">
-  </span>
-  {{ title }}
-</button>
+<ng-container *ngIf="{collapsed: (collapsed$ | async)} as observables">
+  <button
+    *ngIf="title && collapsible"
+    class="op-sidemenu--title"
+    type="button"
+    (click)="collapsed$.next(!observables.collapsed)"
+  >
+    <span
+      class="icon3 icon-small"
+      [ngClass]="(collapsed$ | async) ? 'icon-arrow-down1' : 'icon-arrow-up1'"
+      aria-hidden="true"
+    ></span>
+    {{ title }}
+  </button>
+</ng-container>
 
 <div
-  class="op-sidemenu--title"
   *ngIf="title && !collapsible"
+  class="op-sidemenu--title"
 >
   {{ title }}
 </div>
 
 <ul
   class="op-sidemenu--items"
-  [ngClass]="{'op-sidemenu--items_collapsed' : collapsed}"
+  [ngClass]="{'op-sidemenu--items_collapsed': (collapsed$ | async)}"
 >
   <li
     class="op-sidemenu--item"
