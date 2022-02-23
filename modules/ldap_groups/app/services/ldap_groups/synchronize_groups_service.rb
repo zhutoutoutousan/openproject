@@ -10,8 +10,8 @@ module LdapGroups
     end
 
     def call
-      synchronize!
-      ServiceResult.new(success: true)
+      count = synchronize!
+      ServiceResult.new(result: count, success: true)
     rescue StandardError => e
       error = "[LDAP groups] Failed to perform LDAP group synchronization: #{e.class}: #{e.message}"
       Rails.logger.error(error)
@@ -20,24 +20,22 @@ module LdapGroups
 
     def synchronize!
       ldap_con = ldap.instance_eval { initialize_ldap_con(account, account_password) }
+      count = 0
 
-      @synced_groups.find_each do |sync_group|
-        OpenProject::Mutex.with_advisory_lock_transaction(sync_group) do
-          synchronize_members(sync_group, ldap_con)
+      ::LdapGroups::Membership.transaction do
+        @synced_groups.find_each do |sync_group|
+          user_data = get_members(ldap_con, sync_group)
+
+          # Create users that are not existing
+          users = map_to_users(sync_group, user_data)
+
+          update_memberships!(sync_group, users)
+
+          count += users.count
         end
       end
-    end
 
-    def synchronize_members(sync_group, ldap_con)
-      user_data = get_members(ldap_con, sync_group)
-
-      # Create users that are not existing
-      users = map_to_users(sync_group, user_data)
-
-      update_memberships!(sync_group, users)
-    rescue StandardError => e
-      Rails.logger.error "[LDAP groups] Failed to synchronize group: #{sync_group.dn}: #{e.class} #{e.message}"
-      raise e
+      count
     end
 
     ##
@@ -82,17 +80,16 @@ module LdapGroups
     # Apply memberships from the ldap group and remove outdated
     def update_memberships!(sync, users)
       # Get the user ids of the current members in ldap
-      set_by_us = ::LdapGroups::Membership.where(group_id: sync.id, user_id: users.select(:id)).select(:user_id)
+      ldap_member_ids = users.pluck(:id)
+      set_by_us = ::LdapGroups::Membership.where(group_id: sync.id, user_id: ldap_member_ids).pluck(:user_id)
 
       # Remove group users no longer in ids
-      no_longer_present = ::LdapGroups::Membership.where(group_id: sync.id).where.not(user_id: users.select(:id))
+      no_longer_present = ::LdapGroups::Membership.where(group_id: sync.id).where.not(user_id: ldap_member_ids)
       remove_memberships!(no_longer_present, sync)
 
       # Add new memberships
-      new_member_ids = users
-        .where.not(id: set_by_us)
-        .where.not(id: sync.group.users.select(:id))
-
+      group_members = sync.group.users.pluck(:id)
+      new_member_ids = ldap_member_ids - set_by_us - group_members
       add_memberships!(new_member_ids, sync)
 
       # Reset the counters after manually inserting items
@@ -127,7 +124,7 @@ module LdapGroups
         return
       end
 
-      Rails.logger.info { "[LDAP groups] Adding #{new_member_ids.count} users to #{sync.dn}" }
+      Rails.logger.info { "[LDAP groups] Adding #{new_member_ids.length} users to #{sync.dn}" }
 
       sync.add_members! new_member_ids
     end
