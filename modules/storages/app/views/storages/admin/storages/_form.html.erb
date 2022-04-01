@@ -73,7 +73,7 @@ See COPYRIGHT and LICENSE files for more details.
       </span>
     </div>
     <div class="form--field">
-      <%= f.text_field :oauth_client_secret, label: t('storages.label_oauth_client_secret'), required: false, size: 40, container_class: '-wide' %>
+      <%= f.text_field :oauth_client_secret, label: t('storages.label_oauth_client_secret'), value: @short_secret, disabled: false, required: false, size: 40, container_class: '-wide' %>
       <span class="form--field-instructions">
         <%= t('storages.instructions.oauth_client_secret') %>
       </span>
