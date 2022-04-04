@@ -52,7 +52,7 @@ module Storages::Storages
     # Check that a host actually is a storage server.
     # But only do so if the validations above for URL were successful.
     validate :validate_host_reachable, unless: -> { errors.include?(:host) }
-    
+
     # Optional parameters for OAuth authentication, taken from target system
     # Both parameters are optional. However, they are usually quite long, so
     # we can check for minimum size.
