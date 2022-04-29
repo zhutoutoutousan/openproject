@@ -73,8 +73,15 @@ See COPYRIGHT and LICENSE files for more details.
       </span>
     </div>
     <div class="form--field">
-      <%= f.text_field :oauth_client_secret, label: t('storages.label_oauth_client_secret'), value: @short_secret, disabled: false, required: false, size: 40, container_class: '-wide' %>
-      <span class="form--field-instructions">
+      <% secret_value = @object.errors[:oauth_client_secret].any? ? @object.oauth_client_secret : '' %>
+      <%= f.text_field :oauth_client_secret, label: t('storages.label_oauth_client_secret'), disabled: true, value: secret_value, required: false, size: 40, container_class: '-wide -hidden storage-oauth-secret--input', disabled: true %>
+      <span class="form--field-container storage-oauth-secret--display">
+        <span class="form--text-field-container -wide">
+          <input type="text" disabled="true" value="<%= @short_secret %>"></input>
+        </span>
+        <a id="storages-oauth-client-secret-edit-btn">Edit</a>
+      </span>
+      <span class="form--field-instructions storage-oauth-secret--instructions">
         <%= t('storages.instructions.oauth_client_secret') %>
       </span>
     </div>

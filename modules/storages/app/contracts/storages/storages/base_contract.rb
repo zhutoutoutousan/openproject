@@ -62,5 +62,17 @@ module Storages::Storages
     validates :oauth_client_id, length: { minimum: 10 }, allow_blank: true
     attribute :oauth_client_secret
     validates :oauth_client_secret, length: { minimum: 10 }, allow_blank: true
+
+    validate :client_id_and_secret_both_set
+
+    protected
+
+    def client_id_and_secret_both_set
+      if (model.oauth_client_id.empty? && model.oauth_client_secret.present?) ||
+           (model.oauth_client_id.present? && model.oauth_client_secret.empty?)
+        errors.add :oauth_client_id, "Please set both fields or none."
+        errors.add :oauth_client_secret, "Please set both fields or none."
+      end
+    end
   end
 end

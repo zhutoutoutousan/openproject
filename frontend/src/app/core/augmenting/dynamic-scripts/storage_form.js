@@ -29,21 +29,17 @@
 // Dynamic behavior of Storages edit page in order to enable secret field
 // only if the client_id has been modified.
 jQuery(document).ready(function($) {
-  // Set the client_secret to disabled by default so it won't be modified
-  // when touching the other attributes
-  $('#storages_storage_oauth_client_secret').prop('disabled', true);
-
-  // Trigger on client_id.focus() to enable the client_secret field
-  $('#storages_storage_oauth_client_id').focus(function () {
+  let enableOauthSecretInput = function() {
+    $('.storage-oauth-secret--input').removeClass('-hidden');
     $('#storages_storage_oauth_client_secret').prop('disabled', false);
+    $('#storages_storage_oauth_client_secret').focus();
+    $('#storages-oauth-client-secret-edit-btn').addClass('-hidden');
+    $('.storage-oauth-secret--display').addClass('-hidden');
+  };
 
-    // Post a clear message to the user that he has to enter the secret again,
-    // but only if the old magic value is still there.
-    var magic_value = "****";
-    var current_value = $('#storages_storage_oauth_client_secret').val();
-    if ("" == current_value || current_value.includes(magic_value)) {
-      var instructions = I18n.t('js.storages.enter_oauth2_client_secret');
-      $('#storages_storage_oauth_client_secret').val(instructions);
-    }
-  });
+  if ($('.storage-oauth-secret--input input').hasClass('-error')) {
+    enableOauthSecretInput();
+  }
+
+  $('#storages-oauth-client-secret-edit-btn').on('click', enableOauthSecretInput)
 });
