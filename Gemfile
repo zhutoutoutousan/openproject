@@ -28,13 +28,13 @@
 
 source 'https://rubygems.org'
 
-ruby '~> 3.0.3'
+ruby '~> 3.0.4'
 
 gem 'actionpack-xml_parser', '~> 2.0.0'
 gem 'activemodel-serializers-xml', '~> 1.0.1'
-gem 'activerecord-import', '~> 1.3.0'
+gem 'activerecord-import', '~> 1.4.0'
 gem 'activerecord-session_store', '~> 2.0.0'
-gem 'rails', '~> 6.1.4', '>= 6.1.4.6'
+gem 'rails', '~> 6.1.5', '>= 6.1.5.1'
 gem 'responders', '~> 3.0'
 
 gem 'ffi', '~> 1.15'
@@ -137,7 +137,7 @@ gem 'okcomputer', '~> 1.18.1'
 gem 'gon', '~> 6.4.0'
 
 # Lograge to provide sane and non-verbose logging
-gem 'lograge', '~> 0.11.0'
+gem 'lograge', '~> 0.12.0'
 
 # Structured warnings to selectively disable them in production
 gem 'structured_warnings', '~> 0.4.0'
@@ -168,7 +168,7 @@ gem 'puma', '~> 5.6'
 gem 'rack-timeout', '~> 0.6.0', require: "rack/timeout/base"
 gem 'puma-plugin-statsd', '~> 2.0'
 
-gem 'nokogiri', '~> 1.13.0'
+gem 'nokogiri', '~> 1.13.4'
 
 gem 'carrierwave', '~> 1.3.1'
 gem 'carrierwave_direct', '~> 2.1.0'

@@ -9,7 +9,7 @@ keywords: BIM, BCF, IFC, BIM Issue Management, BCF-Management
 
 # BIM Issue - Management (BIM feature)
 
-Within the *BCF-Module* you are able to manage *BIM Issues (BCF)*. All BIM Iccues get stored as BCFs centrally and are available to every team member in real time. Below you find the most important features how to use the BCF Module to create, inspect and manage issues. 
+Within the *BCF-Module* you are able to manage *BIM Issues (BCF)*. All BIM Issues get stored as BCFs centrally and are available to every team member in real time. Below you find the most important features how to use the BCF Module to create, inspect and manage issues. 
 
 
 
@@ -44,7 +44,7 @@ Then, navigate to the BCF module in the project navigation.
 
 ### Create a new BIM Issue
 
-To create new BIM Issues, you have to open the Model - Viewer first and create the view you want to save within the BIM Issue (e.g. zoom, [rotate](../ifc-viewer/#how-to-rotate-the-building-model), [slice](../ifc-viewer/#how-to-slice-the-building-model), [select](../ifc-viewer/#how-to-select-elements?), [hide](../ifc-viewer/#show-or-hide-models-or-elements-via-model-tree), … ). 
+To create new BIM Issues, you have to open the Model - Viewer first and create the view you want to save within the BIM Issue (e.g. zoom, [rotate](../ifc-viewer/#how-to-rotate-the-building-model), [slice](../ifc-viewer/#how-to-slice-the-building-model), [select](../ifc-viewer/#how-to-select-elements), [hide](../ifc-viewer/#show-or-hide-models-or-elements-via-model-tree), … ). 
 
 Click on the **+ Create new work package** and select the type of workpackage you want. 
 
@@ -52,7 +52,7 @@ Click on the **+ Create new work package** and select the type of workpackage yo
 
 
 
-Now you can see a detail view of the new Issue. Describe all necessary information to work on that task and add a viewpoint by clicking on the **"+ Viewpoint"**-Button. Now the current Viewpoint of the Building Model is added to the Issue. After saveing your new BIM issue is created.
+Now you can see a detail view of the new Issue. Describe all necessary information to work on that task and add a viewpoint by clicking on the **"+ Viewpoint"**-Button. Now the current Viewpoint of the Building Model is added to the Issue. After saving your new BIM issue is created.
 
 *Within the viewpoint the current status of your building model is saved. So please check the view before - is there everything shown within the model viewer?*
 
@@ -95,7 +95,7 @@ The handling of BIM Issues is similar to the handling of work packages (includin
 
 ### Jump to a Viewpoint with the Details View
 
-If the Model viewer isn't shown yet, open the Detail - view of the BIM Issue and follow the Cube symol of the preview. Now the model viewer opens and the viewpoint of the BIM Issue will be displayed.
+If the Model viewer isn't shown yet, open the Detail - view of the BIM Issue and follow the Cube symbol of the preview. Now the model viewer opens and the viewpoint of the BIM Issue will be displayed.
 
 ![Display BIM Issue](display_bim_issue.png)
 

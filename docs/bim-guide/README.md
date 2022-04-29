@@ -58,7 +58,7 @@ You easily can start a new BIM trial on our [OpenProject BIM website](https://ww
 
 ## How to enable the BCF module?
 
-The BCF Module and the included IFC viewer can be enabled for every single project. Here you can find the description how to [enable a module](../user-guide/projects/project-settings/modules/) within your ***poject settings***.
+The BCF Module and the included IFC viewer can be enabled for every single project. Here you can find the description how to [enable a module](../user-guide/projects/project-settings/modules/) within your ***project settings***.
 
 
 
@@ -74,13 +74,13 @@ You found a bug? Please [report it](../development/report-a-bug) to our [OpenPro
 
 ### Can OpenProject features be used within the OpenProject BIM Edition?
 
-Yes, you are able to use all known features. Within our BIM Edition you get the full functionality and additionaly some features only for the building industry.
+Yes, you are able to use all known features. Within our BIM Edition you get the full functionality and additionally some features only for the building industry.
 
 
 
 ### Is it possible to switch my existing OpenProject Installation to the BIM Edition?
 
-Yes, an existing OpenProject on-premises (self-hosted) installation can easily be switched to the BIM Edition without loosing your settings and projects.
+Yes, an existing OpenProject on-premises (self-hosted) installation can easily be switched to the BIM Edition without losing your settings and projects.
 
 In our [Installation & Upgrade Guide](../installation-and-operations/changing-to-bim-edition) you can find a description how to switch.
 
@@ -100,7 +100,7 @@ You don't need it, but it makes your BIM Issue Management much easier. The *Open
 
 ### Are there any System Requirements for the Revit Add-In?
 
-The OpenProject Revit Add-In does not have any special system requirements. Only a supported [version of Autodesk Revit](/#system-requirements) must be installed. 
+The OpenProject Revit Add-In does not have any special system requirements. Only a supported [version of Autodesk Revit](./revit-add-in/#system-requirements) must be installed. 
 
 
 
