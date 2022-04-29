@@ -51,7 +51,7 @@ module Storages::Storages
 
     # Check that a host actually is a storage server.
     # But only do so if the validations above for URL were successful.
-    validate :validate_host_reachable, unless: -> { errors.include?(:host) }
+    validates :host, nextcloud_compatible_host: true, unless: -> { errors.include?(:host) }
 
     # Optional parameters for OAuth authentication, taken from target system
     # Both parameters are optional. However, they are usually quite long, so
@@ -63,78 +63,5 @@ module Storages::Storages
     validates :oauth_client_id, length: { minimum: 10 }, allow_blank: true
     attribute :oauth_client_secret
     validates :oauth_client_secret, length: { minimum: 10 }, allow_blank: true
-
-    # For parameter creator only the current user is allowed
-    def validate_creator_is_user
-      unless creator == user
-        errors.add(:creator, :invalid)
-      end
-    end
-
-    # Check that the new host is accessible and
-    # running a supported version of Nextcloud.
-    def validate_host_reachable
-      return unless model.host_changed?
-
-      response = request_capabilities
-
-      unless response.is_a? Net::HTTPSuccess
-        errors.add(:host, :cannot_be_connected_to)
-        return
-      end
-
-      unless json_response?(response)
-        errors.add(:host, :not_nextcloud_server)
-        return
-      end
-
-      unless major_version_sufficient?(response)
-        errors.add(:host, :minimal_nextcloud_version_unmet)
-      end
-    end
-
-    def major_version_sufficient?(response)
-      return false unless response.body
-
-      version = JSON.parse(response.body).dig('ocs', 'data', 'version', 'major')
-      return false if version.nil?
-      return false if version < MINIMAL_NEXTCLOUD_VERSION
-
-      true
-    end
-
-    private
-
-    # Send HTTP request to Nextcloud and get version
-    def request_capabilities
-      uri = URI.parse(File.join(host, '/ocs/v2.php/cloud/capabilities'))
-      request = Net::HTTP::Get.new(uri)
-      request["Ocs-Apirequest"] = "true"
-      request["Accept"] = "application/json"
-
-      req_options = {
-        max_retries: 0,
-        open_timeout: 5, # seconds
-        read_timeout: 3, # seconds
-        use_ssl: uri.scheme == "https"
-      }
-
-      begin
-        Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
-          http.request(request)
-        end
-      rescue StandardError
-        :unreachable
-      end
-    end
-
-    def json_response?(response)
-      (
-        response['content-type'].split(';').first.strip.downcase == 'application/json' \
-        && JSON.parse(response.body).dig('ocs', 'data', 'version', 'major')
-      )
-    rescue JSON::ParserError
-      false
-    end
   end
 end
