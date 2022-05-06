@@ -325,6 +325,7 @@ ij_xml_line_comment_at_first_column = true
 
 [{*.yml.example,*.yml,*.yaml}]
 indent_size = 2
+insert_final_newline = true
 ij_continuation_indent_size = 2
 ij_yaml_keep_indents_on_empty_lines = false
 ij_yaml_keep_line_breaks = true

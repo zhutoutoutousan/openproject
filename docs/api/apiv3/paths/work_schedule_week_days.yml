@@ -1,0 +1,13 @@
+---
+get:
+  summary: Lists week days
+  operationId: list_week_days
+  tags:
+    - Work Schedule
+    - Non working days
+    - Week days
+  description: |-
+    Lists week days to get work schedule information.
+  responses:
+    '200':
+      description: OK
