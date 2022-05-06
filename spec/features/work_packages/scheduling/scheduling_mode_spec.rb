@@ -50,34 +50,57 @@ describe 'scheduling mode',
   #                       v               v
   #                     wp_child      wp_suc_child
   #
-  let!(:wp) { create :work_package, project: project, start_date: '2016-01-01', due_date: '2016-01-05' }
+  let!(:wp) do
+    create :work_package,
+           project: project,
+           start_date: Date.parse('2016-01-01'),
+           due_date: Date.parse('2016-01-05')
+  end
   let!(:wp_parent) do
-    create(:work_package, project: project, start_date: '2016-01-01', due_date: '2016-01-05').tap do |parent|
+    create(:work_package,
+           project: project,
+           start_date: Date.parse('2016-01-01'),
+           due_date: Date.parse('2016-01-05')).tap do |parent|
       create(:hierarchy_relation, from: parent, to: wp)
     end
   end
   let!(:wp_child) do
-    create(:work_package, project: project, start_date: '2016-01-01', due_date: '2016-01-05').tap do |child|
+    create(:work_package,
+           project: project,
+           start_date: Date.parse('2016-01-01'),
+           due_date: Date.parse('2016-01-05')).tap do |child|
       create(:hierarchy_relation, from: wp, to: child)
     end
   end
   let!(:wp_pre) do
-    create(:work_package, project: project, start_date: '2015-12-15', due_date: '2015-12-31').tap do |pre|
+    create(:work_package,
+           project: project,
+           start_date: Date.parse('2015-12-15'),
+           due_date: Date.parse('2015-12-31')).tap do |pre|
       create(:follows_relation, from: wp, to: pre)
     end
   end
   let!(:wp_suc) do
-    create(:work_package, project: project, start_date: '2016-01-06', due_date: '2016-01-10').tap do |suc|
+    create(:work_package,
+           project: project,
+           start_date: Date.parse('2016-01-06'),
+           due_date: Date.parse('2016-01-10')).tap do |suc|
       create(:follows_relation, from: suc, to: wp)
     end
   end
   let!(:wp_suc_parent) do
-    create(:work_package, project: project, start_date: '2016-01-06', due_date: '2016-01-10').tap do |parent|
+    create(:work_package,
+           project: project,
+           start_date: Date.parse('2016-01-06'),
+           due_date: Date.parse('2016-01-10')).tap do |parent|
       create(:hierarchy_relation, from: parent, to: wp_suc)
     end
   end
   let!(:wp_suc_child) do
-    create(:work_package, project: project, start_date: '2016-01-06', due_date: '2016-01-10').tap do |child|
+    create(:work_package,
+           project: project,
+           start_date: Date.parse('2016-01-06'),
+           due_date: Date.parse('2016-01-10')).tap do |child|
       create(:hierarchy_relation, from: wp_suc, to: child)
     end
   end
@@ -100,7 +123,7 @@ describe 'scheduling mode',
   end
 
   it 'can toggle the scheduling mode through the date modal' do
-    expect(wp.schedule_manually).to eq false
+    expect(wp.schedule_manually).to be false
 
     # Editing the start/due dates of a parent work package is possible if the
     # work package is manually scheduled
